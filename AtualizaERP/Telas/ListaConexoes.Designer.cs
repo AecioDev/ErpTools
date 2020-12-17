@@ -119,15 +119,16 @@
             // 
             // bt_Atualizar
             // 
+            this.bt_Atualizar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(39)))), ((int)(((byte)(61)))));
             this.bt_Atualizar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.bt_Atualizar.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.bt_Atualizar.ForeColor = System.Drawing.Color.WhiteSmoke;
             this.bt_Atualizar.Location = new System.Drawing.Point(432, 239);
             this.bt_Atualizar.Name = "bt_Atualizar";
-            this.bt_Atualizar.Size = new System.Drawing.Size(107, 32);
+            this.bt_Atualizar.Size = new System.Drawing.Size(111, 32);
             this.bt_Atualizar.TabIndex = 4;
             this.bt_Atualizar.Text = "Atualizar 05";
-            this.bt_Atualizar.UseVisualStyleBackColor = true;
+            this.bt_Atualizar.UseVisualStyleBackColor = false;
             this.bt_Atualizar.Click += new System.EventHandler(this.bt_Atualizar_Click);
             // 
             // textBox1

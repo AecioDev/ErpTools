@@ -12,9 +12,10 @@ namespace AtualizaERP.Classes
 {
     public class AcessoDados
     {
-        private string nomeErro = "";
+        public string nomeErro = "";
 
-        private string connStr()
+        //Conexão do Banco Local de Cadastro dos dados dos Clientes.
+        private string connStr() 
         {
             string strConexao = null;
 
@@ -26,8 +27,8 @@ namespace AtualizaERP.Classes
 
             return strConexao;
         }
-               
-        //WebService
+
+        //WebService (Pode Ser Local)
         public List<VersaoModel> ConsVersao(int idVersao, int codVersao)
         {
             List<VersaoModel> Versoes = new List<VersaoModel>();
@@ -42,7 +43,7 @@ namespace AtualizaERP.Classes
 
                 cmd.Parameters.AddWithValue("@idversao", idVersao);
                 cmd.Parameters.AddWithValue("@codversao", codVersao);
-                                
+
                 conexao.Open();
 
                 SqlDataReader rd = cmd.ExecuteReader();
@@ -51,12 +52,12 @@ namespace AtualizaERP.Classes
                 //idVersao	CodVersao	VersaoAtual	DescVersao	DataVersao                
                 while (rd.Read())
                 {
-                                             //  idVersao	     CodVersao	     DescVersao	                DataVersao                      ImpactDB	    URLVersao	    URLRelease
+                    //  idVersao	     CodVersao	     DescVersao	                DataVersao                      ImpactDB	    URLVersao	    URLRelease
                     Versoes.Add(new VersaoModel(rd.GetInt32(0), rd.GetInt32(1), rd.GetString(2), rd.GetDateTime(3).ToShortDateString(), rd.GetString(4), rd.GetString(5), rd.GetString(6)));
                 }
 
                 //Finalizar tarefa
-                conexao.Close(); 
+                conexao.Close();
                 return Versoes;
             }
             catch (Exception erro)
@@ -66,10 +67,10 @@ namespace AtualizaERP.Classes
             }
         }
 
-        //WebService
+        //WebService (Pode Ser Local)
         public string CadVersao(VersaoModel Versao, int caso)
         {
-            
+
             string consulta = "";
             string result = "";
 
@@ -77,13 +78,13 @@ namespace AtualizaERP.Classes
             {
 
                 if (caso == 1) //1 - Cadastro / 2 - Alteração
-                    consulta = "INSERT INTO VERSOESERP VALUES(@idVersao, @CodVersao, @DescVersao, @DataVersao, @ImpactDB, @URLVersao, @URLRelease)";                
+                    consulta = "INSERT INTO VERSOESERP VALUES(@idVersao, @CodVersao, @DescVersao, @DataVersao, @ImpactDB, @URLVersao, @URLRelease)";
                 else
                     consulta = "UPDATE VERSOESERP SET idVersao = @idVersao, CodVersao = @CodVersao, DescVersao = @DescVersao, " +
                                 "DataVersao = @DataVersao, ImpactDB = @ImpactDB, URLVersao = @URLVersao, URLRelease = @URLRelease, " +
                                 "WHERE idVersao = @idVersao";
 
-                SqlConnection conexao = new SqlConnection(connStr()); 
+                SqlConnection conexao = new SqlConnection(connStr());
                 SqlCommand cmd = new SqlCommand(consulta, conexao);
 
                 //Parâmetros
@@ -94,7 +95,7 @@ namespace AtualizaERP.Classes
                 cmd.Parameters.AddWithValue("@ImpactDB", Versao.ImpactDB);
                 cmd.Parameters.AddWithValue("@URLVersao", Versao.URLVersao);
                 cmd.Parameters.AddWithValue("@URLRelease", Versao.URLRelease);
-                
+
                 conexao.Open();
                 cmd.ExecuteNonQuery();
                 cmd.Dispose();
@@ -112,14 +113,16 @@ namespace AtualizaERP.Classes
             }
         }
 
-        public List<AcessosModel> ConsAcessos(string IDConex)
+        //Lista as Estações que estão conectadas no banco de dados.
+        public List<AcessosModel> ConsAcessos(string IDConex) 
         {
             List<AcessosModel> Acessos = new List<AcessosModel>();
             var conERP = LeConfTXT(IDConex);                        
             
             try
             {
-                string conSql = "DECLARE @myConTable TABLE \n" +
+                string conSql = "USE MASTER \n" +
+                                "DECLARE @myConTable TABLE \n" +
                                 "(spid smallint, ecid smallint, status nchar(30), loginname nchar(128), hostname nchar(128), blk char(5), dbname nchar(128), cmd nchar(16), request_id int) \n" +
                                 "INSERT INTO @myConTable EXEC sp_who \n" +
                                 "SELECT hostname, dbname FROM @myConTable WHERE dbname = @nomeDB";
@@ -140,6 +143,7 @@ namespace AtualizaERP.Classes
                 }
 
                 //Finalizar tarefa
+                cmd.Dispose();
                 conexao.Close();
                 return Acessos;
             }
@@ -150,74 +154,11 @@ namespace AtualizaERP.Classes
             }
         }
 
-        #region CLIENTE
-
-        //WebService
-        public DadosCliente BuscaCli(string docCli)
-        {
-            //Verifica se o cliente existe no Banco
-            DadosCliente Cliente = new DadosCliente();
-            try
-            {
-                string conSql = "SELECT * FROM DADOSCLIENTE WHERE docCliente = @docCliente";
-                docCli = docCli.Replace(".", "").Replace("-", "").Replace("/", "");
-                SqlConnection conexao = new SqlConnection(connStr());
-                SqlCommand cmd = new SqlCommand(conSql, conexao);
-                cmd.Parameters.AddWithValue("@docCliente", docCli);
-                conexao.Open();
-                SqlDataReader rd = cmd.ExecuteReader();
-
-                while (rd.Read())
-                {
-                    Cliente.ClienteId = rd.GetInt32(0);             //ClienteID
-                    Cliente.DocCliente = rd.GetString(1);           //DocCliente
-                    Cliente.NomeCliente = rd.GetString(2);          //NomeCliente
-                    Cliente.SerieCliente = rd.GetString(3);         //serieVersao
-                    Cliente.VersaoCliente = rd.GetInt32(4);         //VersaoCli
-                    Cliente.DataAtualizacao = rd.GetDateTime(5);    //DataAtualizacao
-                }
-
-                conexao.Close();
-                return Cliente;
-            }
-            catch (Exception erro)
-            {
-                GravaErro(erro.Message);
-                return Cliente;
-            }
-        } //Dados do Cliente no Controle de Versões
-
-        //WebService
-        public int GetCodCli(string docCli)
-        {
-            int seqCli = 0;
-            try
-            {
-                string conSql = "SELECT ClienteId FROM DADOSCLIENTE WHERE RTRIM(LTRIM(docCliente)) = '" + docCli.Trim() + "'";
-                SqlConnection conexao = new SqlConnection(connStr());
-                SqlCommand cmd = new SqlCommand(conSql, conexao);
-                conexao.Open();
-                SqlDataReader rd = cmd.ExecuteReader();
-
-                while (rd.Read())
-                {
-                    seqCli = rd.GetInt32(0);
-                }
-
-                conexao.Close();
-                return seqCli;
-            }
-            catch (Exception erro)
-            {
-                GravaErro(erro.Message);
-                return seqCli;
-            }
-        } //Retorna o código do Cliente pelo Documento
-
-        public DadosCliente DadosCliERP(string IDConex)
+        //Busca os dados do Cliente no Banco do ERP para gravar no controle de versões
+        public WSVersoesERP.Cliente DadosCliERP(string IDConex)
         {
             string dadostxt = "";
-            DadosCliente Cliente = new DadosCliente();
+            WSVersoesERP.Cliente Cliente = new WSVersoesERP.Cliente();
             var conERP = LeConfTXT(IDConex);
 
             dadostxt = "Servidor:" + conERP.Servidor + "\nBanco:" + conERP.BancoDados + "\nUser:" + conERP.Usuario + "\nSenhaCrip:" + conERP.SenhaCript + "\nKey:" + conERP.KeyString + "\nSenhaBD:" + conERP.SenhaBD + "\nString:" + conERP.StringConexao;
@@ -254,160 +195,28 @@ namespace AtualizaERP.Classes
                 GravaErro(erro.Message);
                 return Cliente;
             }
-        } //Busca os dados do Cliente no Banco do ERP para gravar no controle de versões
-
-        //WebService
-        public string CadCliente(DadosCliente Cliente, int caso)
-        {
-            string consulta = "";
-            string result = "";
-            string conex = "";
-
-            try
-            {
-
-                if (caso == 0) //0 - Cadastro / 1 - Alteração
-                    consulta = "INSERT INTO DADOSCLIENTE VALUES(@docCliente, @nomeCliente, @serieCliente, @versaoCliente, @dataAtualiza)";
-                else
-                    consulta = "UPDATE DADOSCLIENTE SET docCliente = @docCliente, nomeCliente = @nomeCliente, serieCliente = @serieCliente, " +
-                                "versaoCliente = @versaoCliente, dataAtualiza = @dataAtualiza WHERE ClienteId = @ClienteId";
-
-                conex = connStr();
-                nomeErro = @"C:\Temp\StringConexao.txt";
-                GravaErro(conex);
-
-                SqlConnection conexao = new SqlConnection(conex);
-                SqlCommand cmd = new SqlCommand(consulta, conexao);
-
-                //Parâmetros
-                if (caso > 0)
-                    cmd.Parameters.AddWithValue("@ClienteId", Cliente.ClienteId);
-
-                cmd.Parameters.AddWithValue("@docCliente", Cliente.DocCliente);
-                cmd.Parameters.AddWithValue("@nomeCliente", Cliente.NomeCliente);
-                cmd.Parameters.AddWithValue("@serieCliente", Cliente.SerieCliente);
-                cmd.Parameters.AddWithValue("@versaoCliente", Cliente.VersaoCliente);
-                cmd.Parameters.AddWithValue("@dataAtualiza", Cliente.DataAtualizacao);
-
-                conexao.Open();
-                cmd.ExecuteNonQuery();
-                cmd.Dispose();
-                result = "OK";
-                conexao.Close();
-
-                return result;
-
-            }
-            catch (Exception ex)
-            {
-                result = ex.Message;
-                GravaErro(result);
-                return result;
-            }
-        } //Cadastra o Cliente no Controle de versões
-         #endregion
-
-        #region CONEXÃO
-
-        //WebService
-        public ConexaoERP ConsConex(int CodCli, int IdConex)
-        {
-            //Verifica se o cliente existe no Banco
-            ConexaoERP ERPConn = new ConexaoERP();
-            try
-            {
-                string conSql = "SELECT * FROM CONEXAOBD WHERE ClienteId = @CodCli AND ConexaoId = @ConnId";
-                SqlConnection conexao = new SqlConnection(connStr());
-                SqlCommand cmd = new SqlCommand(conSql, conexao);
-                cmd.Parameters.AddWithValue("@CodCli", CodCli);
-                cmd.Parameters.AddWithValue("@ConnId", IdConex);
-                conexao.Open();
-                SqlDataReader rd = cmd.ExecuteReader();
-
-                while (rd.Read())
-                {
-                    ERPConn.ClienteId = rd.GetInt32(0);
-                    ERPConn.ConexaoId = rd.GetInt32(1);
-                    ERPConn.Servidor = rd.GetString(2);
-                    ERPConn.BancoDados = rd.GetString(3);
-                    ERPConn.Usuario = rd.GetString(4);
-                    ERPConn.SenhaCript = rd.GetString(5);
-                    ERPConn.KeyString = rd.GetString(6);
-                    ERPConn.SenhaBD = rd.GetString(7);
-                    ERPConn.ServerMirror = rd.GetString(8);
-                    ERPConn.PastaBD = rd.GetString(9);
-                    ERPConn.PastaBackup = rd.GetString(10);
-                    ERPConn.StringConexao = rd.GetString(11);                    
-                }
-
-                conexao.Close();
-                return ERPConn;
-            }
-            catch (Exception erro)
-            {
-                GravaErro(erro.Message);
-                return ERPConn;
-            }
-
-        } //Dados do Cliente no Controle de Versões
-
-        //WebService
-        public string CadConCliente(ConexaoERP ConnERP, int caso)
-        {
-            string consulta = "";
-            string result = "";
-
-            try
-            {
-                if (caso == 0) //0 - Cadastro / 1 - Alteração
-                    consulta = "INSERT INTO CONEXAOBD VALUES(@ClienteId, @ConexaoId, @ServidorBD, @BancoDados, @UsuarioBD, " +
-                               "@SenhaCrypt, @KeySenhaBD, @SenhaBD, @ServerMirror, @PastaBD, @PastaBackup, @strConn)";
-                else
-                    consulta = "UPDATE CONEXAOBD SET ServidorBD = @ServidorBD, BancoDados = @BancoDados, UsuarioBD = @UsuarioBD, " +
-                                "SenhaCrypt = @SenhaCrypt, KeySenhaBD = @KeySenhaBD, SenhaBD = @SenhaBD, ServerMirror = @ServerMirror, " +
-                                "PastaBD = @PastaBD, PastaBackup = @PastaBackup, stringConexao = @strConn " +
-                                "WHERE ClienteId = @ClienteId AND  ConexaoId = @ConexaoId";
-
-                SqlConnection conexao = new SqlConnection(connStr());
-                SqlCommand cmd = new SqlCommand(consulta, conexao);
-
-                //Parâmetros                
-                cmd.Parameters.AddWithValue("@ClienteId", ConnERP.ClienteId);
-                cmd.Parameters.AddWithValue("@ConexaoId", ConnERP.ConexaoId);
-                cmd.Parameters.AddWithValue("@ServidorBD", ConnERP.Servidor);
-                cmd.Parameters.AddWithValue("@BancoDados", ConnERP.BancoDados);
-                cmd.Parameters.AddWithValue("@UsuarioBD", ConnERP.Usuario);
-                cmd.Parameters.AddWithValue("@SenhaCrypt", ConnERP.SenhaCript);
-                cmd.Parameters.AddWithValue("@KeySenhaBD", ConnERP.KeyString);
-                cmd.Parameters.AddWithValue("@SenhaBD", ConnERP.SenhaBD);
-                cmd.Parameters.AddWithValue("@ServerMirror", ConnERP.ServerMirror);
-                cmd.Parameters.AddWithValue("@PastaBD", ConnERP.PastaBD);
-                cmd.Parameters.AddWithValue("@PastaBackup", ConnERP.PastaBackup);
-                cmd.Parameters.AddWithValue("@strConn", ConnERP.StringConexao);
-
-                conexao.Open();
-                cmd.ExecuteNonQuery();
-                cmd.Dispose();
-                result = "OK";
-                conexao.Close();
-                return result;
-
-            }
-            catch (Exception ex)
-            {
-                result = ex.Message;
-                GravaErro(result);
-                return result;
-            }
-        } //Cadastra a Conexão do Banco ERP do Cliente no Controle de versões
-
-
+        } 
+        
+        //Retorna os dados da conexão do ERP 
         public ConexaoERP LeConfTXT(string IDConex)
         {
+
             ConexaoERP dadosConn = new ConexaoERP();
-            string PastaUser = Environment.GetEnvironmentVariable("USERPROFILE");
-            string ArqConexoes = PastaUser + @"\Controller\ConexaoAtual-" + IDConex + ".cfg";
+            string PastaUser = "";
+            string ArqConexoes = "";
             string Valor = "";
+
+            var tam = IDConex.Length;
+            if (tam < 3)
+            {
+                if (tam == 2)
+                    IDConex = "0" + IDConex.Trim();
+                else if(tam == 1)
+                    IDConex = "00" + IDConex.Trim();
+            }
+
+            PastaUser = Environment.GetEnvironmentVariable("USERPROFILE");
+            ArqConexoes = PastaUser + @"\Controller\ConexaoAtual-" + IDConex + ".cfg";
 
             try
             {
@@ -470,26 +279,35 @@ namespace AtualizaERP.Classes
                 throw ex;
             }
         }
-        
-        #endregion
-
-        public string fechaConBD(string Banco, int caso)
+      
+        //Derruba as conexões abertas com o Banco de dados.
+        public string fechaConBD(ConexaoERP ConnErp, int caso)
         { 
             string consulta = "";
             string result = "";
+            string connStrMaster = "";
+
+            connStrMaster = String.Format(@"Data Source={0};Initial Catalog={1};Persist Security Info=True;User ID={2};Password={3}",
+                ConnErp.Servidor, "master", ConnErp.Usuario, ConnErp.SenhaBD);
 
             try
             {
+                //SqlConnection conexao = new SqlConnection(connStrMaster);
+
                 if (caso == 1) //1 - Fecha Conexoes / 2 - Retorna para MultUser
-                    consulta = "USE [master] \nGO\n" +                               
-                                "ALTER DATABASE " + Banco.ToUpper() + " SET SINGLE_USER WITH ROLLBACK IMMEDIATE\nGO\n" +
-                                "ALTER DATABASE " + Banco.ToUpper() + " SET SINGLE_USER \nGO\n";
-
+                {
+                    consulta = "ALTER DATABASE " + ConnErp.BancoDados.ToUpper() + " SET SINGLE_USER WITH ROLLBACK IMMEDIATE; \n" +
+                               "ALTER DATABASE " + ConnErp.BancoDados.ToUpper() + " MODIFY NAME = REBUILDidx; \n" +
+                               "ALTER DATABASE REBUILDidx SET MULTI_USER; \n";
+                }
                 else
-                    consulta = "USE [master] \nGO\n" +                               
-                                "ALTER DATABASE " + Banco.ToUpper() + " SET MULTI_USER \nGO\n";
+                {
+                    consulta = "ALTER DATABASE REBUILDidx SET SINGLE_USER WITH ROLLBACK IMMEDIATE; \n" +
+                               "ALTER DATABASE REBUILDidx MODIFY NAME = " + ConnErp.BancoDados.ToUpper() + ";\n" +
+                               "ALTER DATABASE " + ConnErp.BancoDados.ToUpper() + " SET MULTI_USER; \n";
+                }
 
-                SqlConnection conexao = new SqlConnection(connStr()); 
+                SqlConnection conexao = new SqlConnection(connStrMaster); 
                 SqlCommand cmd = new SqlCommand(consulta, conexao);
                 conexao.Open();
                 cmd.ExecuteNonQuery();
@@ -505,6 +323,339 @@ namespace AtualizaERP.Classes
                 result = ex.Message;
                 GravaErro(result);
                 return result;
+            }
+        }
+
+        //Verifica Conexão com o Banco De Dados
+        public bool VerConnDB(string IDConex)
+        {            
+            string script = "";
+            bool conectado = false;
+         
+            var conERP = LeConfTXT(IDConex);
+
+            try
+            {
+                //Primeiro Lista as Tabelas do Banco de Dados.
+                script = "SELECT versisemp FROM EMPRESA";
+
+                SqlConnection conexao = new SqlConnection(conERP.StringConexao);
+                SqlCommand cmd = new SqlCommand(script, conexao);
+                conexao.Open();
+                SqlDataReader rd = cmd.ExecuteReader();
+
+                while (rd.Read())
+                {
+                    var versao = rd.GetValue(0).ToString();
+                }
+
+                conexao.Close();
+                conectado = true;
+            }
+            catch (Exception erro)
+            {
+                GravaErro(erro.Message);
+                conectado = false;
+            }
+
+            return conectado;
+        }
+
+
+        //Executa rotina de Manutenção do Banco de Dados 
+        public void ManDBERP(string IDConex)
+        {
+            string dadosdebug = "";
+            string script = "";
+            string NomeTabela = "";
+            int QntLinhas = 0;
+            int TamanhoTabela = 0;
+            decimal FragIdxTab = 0;
+            string connStrRebuild = "";
+
+            var conERP = LeConfTXT(IDConex);
+
+            nomeErro = @"C:\Controller\DebugRebuildIdx\ProcessamentoManDB.txt";
+            dadosdebug = "Conexão com BD: -> Servidor:" + conERP.Servidor + "\nBanco:" + conERP.BancoDados + "\nUser:" + conERP.Usuario + "\nSenhaCrip:" + conERP.SenhaCript + "\nKey:" + conERP.KeyString + "\nSenhaBD:" + conERP.SenhaBD + "\nString:" + conERP.StringConexao + "\n";
+            dadosdebug += "Inicio Processamento Geral: " + DateTime.Now.ToString() + "\n";
+
+
+            connStrRebuild = String.Format(@"Data Source={0};Initial Catalog={1};Persist Security Info=True;User ID={2};Password={3}",
+                conERP.Servidor, "REBUILDidx", conERP.Usuario, conERP.SenhaBD);
+            try
+            {
+                //Primeiro Lista as Tabelas do Banco de Dados.
+                script = "SELECT t.NAME AS TableName, p.rows AS QuantidadeDeLinhas, SUM(a.total_pages) * 8 / 1024 AS EspacoTotalEmMB  \n" +
+                         "FROM sys.tables t \n" +
+                         "  INNER JOIN sys.indexes i ON t.OBJECT_ID = i.object_id \n" +
+                         "  INNER JOIN sys.partitions p ON i.object_id = p.OBJECT_ID AND i.index_id = p.index_id \n" +
+                         "  INNER JOIN sys.allocation_units a ON p.partition_id = a.container_id \n" +
+                         "  LEFT OUTER JOIN sys.schemas s ON t.schema_id = s.schema_id \n" +
+                         "WHERE t.NAME NOT LIKE 'dt%' \n" +
+                         "  AND t.is_ms_shipped = 0 \n" +
+                         "  AND i.OBJECT_ID > 255 \n" +
+                         "GROUP BY t.Name, s.Name, p.Rows \n" +
+                         "ORDER BY 3 DESC";
+
+                SqlConnection conexao = new SqlConnection(connStrRebuild);
+                SqlCommand cmd = new SqlCommand(script, conexao);
+                conexao.Open();
+                SqlDataReader rd = cmd.ExecuteReader();
+
+                while (rd.Read())
+                {                    
+                    NomeTabela = rd.GetString(0);   //Nome da Tabela
+
+                    if (!string.IsNullOrEmpty(rd.GetValue(1).ToString()))
+                        QntLinhas = Convert.ToInt32(rd.GetValue(1).ToString());     //Quantidade de Linhas
+                    else
+                        QntLinhas = 0;
+
+                    if (!string.IsNullOrEmpty(rd.GetValue(2).ToString()))
+                        TamanhoTabela = Convert.ToInt32(rd.GetValue(2).ToString());     //Espaço Total em MB
+                    else
+                        TamanhoTabela = 0;
+
+                    if (TamanhoTabela >= 10)
+                    {
+                        //Chama Rotina para Verificar Fragmentação dos Indices da Tabela.
+                        FragIdxTab = VerFragTabela(connStrRebuild, NomeTabela);
+
+                        if (FragIdxTab >= 20)
+                        {
+                            //Executa rotina de Rebuild dos Indices.
+                            RebuildIdx(connStrRebuild, NomeTabela);
+                        }
+                    }
+                }
+                conexao.Close();
+
+                dadosdebug += "Fim do Processamento Geral: " + DateTime.Now.ToString() + "\n";
+                GravaErro(dadosdebug);
+            }
+            catch (Exception erro)
+            {
+                GravaErro(erro.Message);
+            }
+        }
+
+        public decimal VerFragTabela(string ConnErp, string TabelaBD)
+        {
+            string script1 = "";
+            string nomeIdx = "";
+            decimal FragIdxTab = 0;
+                        
+            try
+            {
+                //Primeiro Lista as Tabelas do Banco de Dados.
+                script1 = "SELECT dbindexes.[name] as 'Index', indexstats.avg_fragmentation_in_percent \n" +
+                         "FROM sys.dm_db_index_physical_stats(DB_ID(), NULL, NULL, NULL, NULL) AS indexstats \n" +
+                         "  INNER JOIN sys.tables dbtables on dbtables.[object_id] = indexstats.[object_id] \n" +
+                         "  INNER JOIN sys.schemas dbschemas on dbtables.[schema_id] = dbschemas.[schema_id] \n" +
+                         "  INNER JOIN sys.indexes AS dbindexes ON dbindexes.[object_id] = indexstats.[object_id] AND indexstats.index_id = dbindexes.index_id \n" +
+                         "WHERE indexstats.database_id = DB_ID() \n" +
+                         "  AND dbtables.[name] like '" + TabelaBD.Trim() + "' \n" +
+                         "ORDER BY indexstats.avg_fragmentation_in_percent desc";
+
+                SqlConnection conexao1 = new SqlConnection(ConnErp);
+                SqlCommand cmd1 = new SqlCommand(script1, conexao1);
+                conexao1.Open();
+                SqlDataReader rdx = cmd1.ExecuteReader();
+
+                while (rdx.Read())
+                {
+                    nomeIdx = rdx.GetString(0);      //Nome do Indice
+
+                    if (!string.IsNullOrEmpty(rdx.GetValue(1).ToString()))
+                        FragIdxTab = Convert.ToDecimal(rdx.GetValue(1).ToString());     //Percentual de Fragmentação  
+                    else
+                        FragIdxTab = 0;
+
+                    //Chama Rotina para Verificar Fragmentação da Tabela.
+                    if (FragIdxTab >= 20)
+                        break; //Sai do Laço
+                }
+
+                conexao1.Close();
+
+                return FragIdxTab;
+            }
+            catch (Exception erro)
+            {
+                GravaErro(erro.Message);
+            }
+
+            return FragIdxTab;
+        }
+
+        public void RebuildIdx(string ConnErp, string TabelaBD)
+        {
+            string dadostxt = "";
+            string script2 = "";
+            int roles = 0;
+
+            nomeErro = @"C:\Controller\DebugRebuildIdx\RebuildTabela_" + TabelaBD.Trim() + ".txt";
+            dadostxt = "Rebuild na Tabela " + TabelaBD.Trim() + "\n";
+            
+            try
+            {
+                script2 = "ALTER INDEX ALL ON " + TabelaBD.Trim() + " REBUILD";
+
+                SqlConnection conexao2 = new SqlConnection(ConnErp);
+                SqlCommand cmd2 = new SqlCommand(script2, conexao2);
+
+                TimeSpan TempoIni = new TimeSpan(DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second);
+                dadostxt += "Início do processamento: " + DateTime.Now.ToString() + "\n";
+
+                conexao2.Open();
+                cmd2.CommandTimeout = 900;               
+                roles = cmd2.ExecuteNonQuery();
+
+                TimeSpan TempoFim = new TimeSpan(DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second);
+                TimeSpan intervalo = TempoFim - TempoIni;
+                dadostxt += "Fim do processamento: " + DateTime.Now.ToString() + "\n";
+                dadostxt += "Tempo total do processamento: ";
+
+                if(intervalo.Hours > 0)
+                    dadostxt += intervalo.Hours.ToString() + " Horas, ";
+
+                if (intervalo.Minutes > 0)
+                    dadostxt += intervalo.Minutes.ToString() + " Minutos, ";
+
+                if (intervalo.Seconds > 0)
+                    dadostxt += intervalo.Seconds.ToString() + " Segundos.\n";
+
+                if (roles > 0)
+                    dadostxt += roles.ToString() + " linhas afetadas!" + "\n";
+                else
+                    dadostxt += "Nenhuma linha afetada!";
+
+                conexao2.Close();
+                GravaErro(dadostxt);
+            }
+            catch (Exception erro)
+            {
+                nomeErro = "";
+                GravaErro(erro.Message);
+            }
+        }
+
+        public DadosTarefa GetAgenda(int AgendaId, string IDConex)
+        {
+            string dadostxt = "";
+            DadosTarefa Agenda = new DadosTarefa();
+            var conERP = LeConfTXT(IDConex);
+
+            dadostxt = "Servidor:" + conERP.Servidor + "\nBanco:" + conERP.BancoDados + "\nUser:" + conERP.Usuario + "\nSenhaCrip:" + conERP.SenhaCript + "\nKey:" + conERP.KeyString + "\nSenhaBD:" + conERP.SenhaBD + "\nString:" + conERP.StringConexao;
+            nomeErro = @"C:\Temp\DadosLeConf.txt";
+            GravaErro(dadostxt);
+
+            try
+            {
+                string conSql = "SELECT AgendaId, AgendaTipo, AgendaData, AgendaFreq, AgendaStatus, DescStatusAgd, UserAgendou from AGENDA where AgendaId = @AgendaId";
+                SqlConnection conexao = new SqlConnection(conERP.StringConexao);
+                SqlCommand cmd = new SqlCommand(conSql, conexao);
+
+                cmd.Parameters.AddWithValue("@AgendaId", AgendaId);
+
+                conexao.Open();
+                SqlDataReader rd = cmd.ExecuteReader();
+
+                while (rd.Read())
+                {
+                    if(!string.IsNullOrEmpty(rd.GetValue(0).ToString()))    //Id
+                        Agenda.AgendaId = Convert.ToInt32(rd.GetValue(0));
+
+                    if (!string.IsNullOrEmpty(rd.GetValue(1).ToString()))   //Tipo
+                        Agenda.AgendaTipo = Convert.ToInt32(rd.GetValue(1));
+
+                    var data = rd.GetValue(2).ToString();
+                    if (!string.IsNullOrEmpty(rd.GetValue(2).ToString()))   //Data
+                        Agenda.AgendaData = Convert.ToDateTime(rd.GetValue(4));
+                    else
+                        Agenda.AgendaData = Convert.ToDateTime("01-01-1753");
+
+                    if (!string.IsNullOrEmpty(rd.GetValue(3).ToString()))   //Tipo
+                        Agenda.AgendaFreq = Convert.ToInt32(rd.GetValue(3));
+
+                    Agenda.AgendaStatus = rd.GetString(4);          //Status
+                    Agenda.DescStatusAgd = rd.GetString(5);         //Descrição Status
+                    Agenda.UserAgendou = rd.GetString(6);           //Usuário
+
+                    break;
+                }
+
+                conexao.Close();
+                return Agenda;
+            }
+            catch (Exception erro)
+            {
+                GravaErro(erro.Message);
+                return null;
+            }
+        }
+
+        public void AtualizaStatusTarefa(int AgendaId, string Status, string DescStatus, string IDConex)
+        {            
+            string script = "";
+
+            var conERP = LeConfTXT(IDConex);
+
+            nomeErro = "";            
+
+            try
+            {
+               
+                script = "Update AGENDA set AgendaStatus = @Status, DescStatusAgd = @DescStatus where AgendaId = @AgendaId";
+               
+                SqlConnection conexao = new SqlConnection(conERP.StringConexao);
+                SqlCommand cmd = new SqlCommand(script, conexao);
+
+                cmd.Parameters.AddWithValue("@AgendaId", AgendaId);
+                cmd.Parameters.AddWithValue("@Status", Status);
+                cmd.Parameters.AddWithValue("@DescStatus", DescStatus);
+                
+                conexao.Open();
+                cmd.ExecuteNonQuery();
+
+                conexao.Close();
+            }
+            catch (Exception erro)
+            {
+                nomeErro = "";
+                GravaErro(erro.Message);
+            }
+        }
+
+        public void GravaLogTarefa(int AgendaId, DateTime DataUltima, DateTime DataProxima, string DescStatus, string IDConex)
+        {
+            string script = "";
+
+            var conERP = LeConfTXT(IDConex);
+
+            nomeErro = "";
+
+            try
+            {
+
+                script = "Update AGENDA set AgendaStatus = @Status, DescStatusAgd = @DescStatus where AgendaId = @AgendaId";
+
+                SqlConnection conexao = new SqlConnection(conERP.StringConexao);
+                SqlCommand cmd = new SqlCommand(script, conexao);
+
+                //cmd.Parameters.AddWithValue("@AgendaId", AgendaId);
+                //cmd.Parameters.AddWithValue("@Status", Status);
+                //cmd.Parameters.AddWithValue("@DescStatus", DescStatus);
+
+                conexao.Open();
+                cmd.ExecuteNonQuery();
+
+                conexao.Close();
+            }
+            catch (Exception erro)
+            {
+                nomeErro = "";
+                GravaErro(erro.Message);
             }
         }
 
@@ -533,6 +684,25 @@ namespace AtualizaERP.Classes
             nomeErro = "";
         }
 
+        public void GravaFim(string mensagem)
+        {            
+            string arqfim = "FimAtualizaERP.txt";
+                        
+            try
+            {
+                FileStream fs = new FileStream(arqfim, FileMode.Create, FileAccess.Write);
+                StreamWriter sw = new StreamWriter(fs);
+
+                sw.WriteLine(mensagem);
+
+                sw.Close(); //grava e fecha
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
         public static string EncodeBase64(string plainText)
         {
             var plainTextBytes = System.Text.Encoding.UTF8.GetBytes(plainText);
@@ -544,6 +714,7 @@ namespace AtualizaERP.Classes
             var base64EncodedBytes = System.Convert.FromBase64String(base64EncodedData);
             return System.Text.Encoding.UTF8.GetString(base64EncodedBytes);
         }
+
 
     }
 }

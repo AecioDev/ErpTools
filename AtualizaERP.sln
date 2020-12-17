@@ -1,11 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.26730.12
-MinimumVisualStudioVersion = 10.0.40219.1
+# Visual Studio 2012
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AtualizaERP", "AtualizaERP\AtualizaERP.csproj", "{1F283724-4901-4E56-A3DB-F660B493767F}"
-EndProject
-Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "AtualizaERP_Setup", "AtualizaERP_Setup\AtualizaERP_Setup.vdproj", "{860A6C65-24A4-4546-A3D7-280884F4DF63}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -17,8 +13,6 @@ Global
 		{1F283724-4901-4E56-A3DB-F660B493767F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1F283724-4901-4E56-A3DB-F660B493767F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1F283724-4901-4E56-A3DB-F660B493767F}.Release|Any CPU.Build.0 = Release|Any CPU
-		{860A6C65-24A4-4546-A3D7-280884F4DF63}.Debug|Any CPU.ActiveCfg = Debug
-		{860A6C65-24A4-4546-A3D7-280884F4DF63}.Release|Any CPU.ActiveCfg = Release
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

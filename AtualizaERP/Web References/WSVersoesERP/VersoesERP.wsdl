@@ -1,0 +1,268 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="controllernet" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="controllernet" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="controllernet">
+      <s:element name="CadNovaVersao">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Versao" type="tns:Versao" />
+            <s:element minOccurs="1" maxOccurs="1" name="caso" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="Versao">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="IdVersao" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="CodVersao" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="DescVersao" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="DataVersao" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="ImpactDB" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="URLVersao" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="URLRelease" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="CadNovaVersaoResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="CadNovaVersaoResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ListAllVersions">
+        <s:complexType />
+      </s:element>
+      <s:element name="ListAllVersionsResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ListAllVersionsResult" type="tns:ArrayOfVersao" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfVersao">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="Versao" nillable="true" type="tns:Versao" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="VersionByName">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="name" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="VersionByNameResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="VersionByNameResult" type="tns:ArrayOfVersao" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="VersionByCod">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="cod" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="VersionByCodResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="VersionByCodResult" type="tns:Versao" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="LastVersion">
+        <s:complexType />
+      </s:element>
+      <s:element name="LastVersionResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="LastVersionResult" type="tns:Versao" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetCliente">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="doc" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetClienteResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetClienteResult" type="tns:Cliente" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="Cliente">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="ClienteId" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="DocCliente" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="NomeCliente" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="SerieCliente" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="VersaoCliente" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="DataAtualizacao" type="s:dateTime" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="CadCliente">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Cli" type="tns:Cliente" />
+            <s:element minOccurs="1" maxOccurs="1" name="caso" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CadClienteResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="CadClienteResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="CadNovaVersaoSoapIn">
+    <wsdl:part name="parameters" element="tns:CadNovaVersao" />
+  </wsdl:message>
+  <wsdl:message name="CadNovaVersaoSoapOut">
+    <wsdl:part name="parameters" element="tns:CadNovaVersaoResponse" />
+  </wsdl:message>
+  <wsdl:message name="ListAllVersionsSoapIn">
+    <wsdl:part name="parameters" element="tns:ListAllVersions" />
+  </wsdl:message>
+  <wsdl:message name="ListAllVersionsSoapOut">
+    <wsdl:part name="parameters" element="tns:ListAllVersionsResponse" />
+  </wsdl:message>
+  <wsdl:message name="VersionByNameSoapIn">
+    <wsdl:part name="parameters" element="tns:VersionByName" />
+  </wsdl:message>
+  <wsdl:message name="VersionByNameSoapOut">
+    <wsdl:part name="parameters" element="tns:VersionByNameResponse" />
+  </wsdl:message>
+  <wsdl:message name="VersionByCodSoapIn">
+    <wsdl:part name="parameters" element="tns:VersionByCod" />
+  </wsdl:message>
+  <wsdl:message name="VersionByCodSoapOut">
+    <wsdl:part name="parameters" element="tns:VersionByCodResponse" />
+  </wsdl:message>
+  <wsdl:message name="LastVersionSoapIn">
+    <wsdl:part name="parameters" element="tns:LastVersion" />
+  </wsdl:message>
+  <wsdl:message name="LastVersionSoapOut">
+    <wsdl:part name="parameters" element="tns:LastVersionResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetClienteSoapIn">
+    <wsdl:part name="parameters" element="tns:GetCliente" />
+  </wsdl:message>
+  <wsdl:message name="GetClienteSoapOut">
+    <wsdl:part name="parameters" element="tns:GetClienteResponse" />
+  </wsdl:message>
+  <wsdl:message name="CadClienteSoapIn">
+    <wsdl:part name="parameters" element="tns:CadCliente" />
+  </wsdl:message>
+  <wsdl:message name="CadClienteSoapOut">
+    <wsdl:part name="parameters" element="tns:CadClienteResponse" />
+  </wsdl:message>
+  <wsdl:portType name="VersoesERPSoap">
+    <wsdl:operation name="CadNovaVersao">
+      <wsdl:input message="tns:CadNovaVersaoSoapIn" />
+      <wsdl:output message="tns:CadNovaVersaoSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ListAllVersions">
+      <wsdl:input message="tns:ListAllVersionsSoapIn" />
+      <wsdl:output message="tns:ListAllVersionsSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="VersionByName">
+      <wsdl:input message="tns:VersionByNameSoapIn" />
+      <wsdl:output message="tns:VersionByNameSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="VersionByCod">
+      <wsdl:input message="tns:VersionByCodSoapIn" />
+      <wsdl:output message="tns:VersionByCodSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="LastVersion">
+      <wsdl:input message="tns:LastVersionSoapIn" />
+      <wsdl:output message="tns:LastVersionSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetCliente">
+      <wsdl:input message="tns:GetClienteSoapIn" />
+      <wsdl:output message="tns:GetClienteSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="CadCliente">
+      <wsdl:input message="tns:CadClienteSoapIn" />
+      <wsdl:output message="tns:CadClienteSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="VersoesERPSoap" type="tns:VersoesERPSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="CadNovaVersao">
+      <soap:operation soapAction="controllernet/CadNovaVersao" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ListAllVersions">
+      <soap:operation soapAction="controllernet/ListAllVersions" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="VersionByName">
+      <soap:operation soapAction="controllernet/VersionByName" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="VersionByCod">
+      <soap:operation soapAction="controllernet/VersionByCod" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="LastVersion">
+      <soap:operation soapAction="controllernet/LastVersion" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetCliente">
+      <soap:operation soapAction="controllernet/GetCliente" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CadCliente">
+      <soap:operation soapAction="controllernet/CadCliente" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="VersoesERP">
+    <wsdl:port name="VersoesERPSoap" binding="tns:VersoesERPSoap">
+      <soap:address location="http://idc.controllernet.com.br:8080/servicecontroller/VersoesERP.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

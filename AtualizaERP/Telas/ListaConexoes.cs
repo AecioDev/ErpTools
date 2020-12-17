@@ -13,9 +13,11 @@ namespace AtualizaERP.Telas
     public partial class ListaConexoes : Form
     {
         private int segundo = 5;
+        private string seg = "";
 
         private string Banco = "";
         private bool continuar = false;
+        List<AcessosModel> Acessos;
 
         public ListaConexoes(string _banco)
         {
@@ -24,28 +26,9 @@ namespace AtualizaERP.Telas
         }
 
         private void ListaConexoes_Load(object sender, EventArgs e)
-        {
+        {           
             ListaAcessos();
             timer1.Enabled = true;
-        }
-
-        private void ListaAcessos()
-        {
-            List<AcessosModel> Acessos = new List<AcessosModel>();
-            AcessoDados dados = new AcessoDados();
-
-            Acessos = dados.ConsAcessos(Banco);
-
-            //acessoDadosBindingSource.DataSource = Acessos;
-            grid_Dados.DataSource = Acessos;
-            grid_Dados.Refresh();
-
-            if (Acessos.Count == 0)
-            {
-                bt_Atualizar.Text = "Continuar";
-                continuar = true;
-                timer1.Enabled = false;
-            }
         }
 
         private void bt_Atualizar_Click(object sender, EventArgs e)
@@ -56,25 +39,66 @@ namespace AtualizaERP.Telas
                 ListaAcessos();
         }
 
+        private void ListaAcessos()
+        {
+            Acessos = new List<AcessosModel>();
+            AcessoDados dados = new AcessoDados();
+            
+            Acessos = dados.ConsAcessos(Banco);
+
+            grid_Dados.DataSource = Acessos;
+            grid_Dados.Refresh();
+
+            if (Acessos.Count > 0)
+            {
+                segundo = 5;
+            }
+            else
+            {
+                bt_Atualizar.Text = "Continuar 10";
+                bt_Atualizar.BackColor = Color.DimGray;
+                continuar = true;
+                segundo = 10;
+            }                        
+        }
+                
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            if (segundo > 9)
+                seg = segundo.ToString();
+            else
+                seg = "0" + segundo;
+
+            if (segundo < 0) //Terminou a contagem
+            {
+                if (Acessos.Count > 0) //Ainda tem máquinas conectadas?
+                {
+                    //SIM - Continua Verificando
+                    ListaAcessos();
+                }
+                else
+                {
+                    //NÃO - Finaliza a tela
+                    timer1.Enabled = false;
+                    this.Close();
+                }
+            }
+            else
+            {
+                if (Acessos.Count > 0)
+                    bt_Atualizar.Text = "Atualizar " + seg;
+                else
+                    bt_Atualizar.Text = "Continuar " + seg;
+
+                segundo--;
+            }            
+        }
+
         private void bt_Fechar_Click(object sender, EventArgs e)
         {
             this.Close();
         }
 
-        private void timer1_Tick(object sender, EventArgs e)
-        {
-            string seg = "0" + segundo;
-
-            bt_Atualizar.Text = "Atualizar " + seg;
-            segundo--;
-            
-            if (segundo <= 0)
-            {
-                ListaAcessos();
-                segundo = 5;
-            }
-        }
-        
     }
 }
 

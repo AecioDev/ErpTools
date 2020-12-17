@@ -1,0 +1,54 @@
+C:\Users\espir\Google Drive\Códigos\AtualizaERP\AtualizaERP\bin\Debug\AtualizaERP.exe.config
+C:\Users\espir\Google Drive\Códigos\AtualizaERP\AtualizaERP\bin\Debug\AtualizaERP.exe
+C:\Users\espir\Google Drive\Códigos\AtualizaERP\AtualizaERP\bin\Debug\AtualizaERP.pdb
+C:\Users\espir\Google Drive\Códigos\AtualizaERP\AtualizaERP\obj\Debug\AtualizaERP.csprojAssemblyReference.cache
+C:\Users\espir\Google Drive\Códigos\AtualizaERP\AtualizaERP\obj\Debug\AtualizaERP.Properties.Resources.resources
+C:\Users\espir\Google Drive\Códigos\AtualizaERP\AtualizaERP\obj\Debug\AtualizaERP.csproj.GenerateResource.cache
+C:\Users\espir\Google Drive\Códigos\AtualizaERP\AtualizaERP\obj\Debug\AtualizaERP.csproj.CoreCompileInputs.cache
+C:\Users\espir\Google Drive\Códigos\AtualizaERP\AtualizaERP\obj\Debug\AtualizaERP.exe
+C:\Users\espir\Google Drive\Códigos\AtualizaERP\AtualizaERP\obj\Debug\AtualizaERP.pdb
+C:\Users\espir\Google Drive\Códigos\AtualizaERP\AtualizaERP\obj\Debug\AtualizaERP.Telas.DownloadERP.resources
+D:\C#\AtualizaERP\AtualizaERP\bin\Debug\AtualizaERP.exe.config
+D:\C#\AtualizaERP\AtualizaERP\bin\Debug\AtualizaERP.exe
+D:\C#\AtualizaERP\AtualizaERP\bin\Debug\AtualizaERP.pdb
+D:\C#\AtualizaERP\AtualizaERP\obj\Debug\AtualizaERP.Properties.Resources.resources
+D:\C#\AtualizaERP\AtualizaERP\obj\Debug\AtualizaERP.Telas.DownloadERP.resources
+D:\C#\AtualizaERP\AtualizaERP\obj\Debug\AtualizaERP.csproj.GenerateResource.Cache
+D:\C#\AtualizaERP\AtualizaERP\obj\Debug\AtualizaERP.csproj.CoreCompileInputs.cache
+D:\C#\AtualizaERP\AtualizaERP\obj\Debug\AtualizaERP.exe
+D:\C#\AtualizaERP\AtualizaERP\obj\Debug\AtualizaERP.pdb
+D:\C#\AtualizaERP\AtualizaERP\obj\Debug\AtualizaERP.Telas.BackupERP.resources
+D:\C#\AtualizaERP\AtualizaERP\bin\Debug\Microsoft.SqlServer.ConnectionInfo.dll
+D:\C#\AtualizaERP\AtualizaERP\bin\Debug\Microsoft.SqlServer.ConnectionInfoExtended.dll
+D:\C#\AtualizaERP\AtualizaERP\bin\Debug\Microsoft.SqlServer.Management.Sdk.Sfc.dll
+D:\C#\AtualizaERP\AtualizaERP\bin\Debug\Microsoft.SqlServer.Smo.dll
+D:\C#\AtualizaERP\AtualizaERP\bin\Debug\Microsoft.SqlServer.SmoExtended.dll
+D:\C#\AtualizaERP\AtualizaERP\bin\Debug\Microsoft.SqlServer.SqlClrProvider.dll
+D:\C#\AtualizaERP\AtualizaERP\bin\Debug\Microsoft.SqlServer.SqlEnum.dll
+D:\C#\AtualizaERP\AtualizaERP\bin\Debug\DotNetZip.dll
+D:\C#\AtualizaERP\AtualizaERP\bin\Debug\DotNetZip.xml
+D:\C#\AtualizaERP\AtualizaERP\obj\Debug\AtualizaERP.csprojResolveAssemblyReference.cache
+E:\Desenvolvimento\Projetos\ManDB\AtualizaERP\AtualizaERP\bin\Debug\AtualizaERP.exe.config
+E:\Desenvolvimento\Projetos\ManDB\AtualizaERP\AtualizaERP\obj\Debug\AtualizaERP.exe
+E:\Desenvolvimento\Projetos\ManDB\AtualizaERP\AtualizaERP\obj\Debug\AtualizaERP.pdb
+E:\Desenvolvimento\Projetos\ManDB\AtualizaERP\AtualizaERP\bin\Debug\AtualizaERP.exe
+E:\Desenvolvimento\Projetos\ManDB\AtualizaERP\AtualizaERP\bin\Debug\AtualizaERP.pdb
+E:\Desenvolvimento\Projetos\ManDB\AtualizaERP\AtualizaERP\bin\Debug\DotNetZip.dll
+E:\Desenvolvimento\Projetos\ManDB\AtualizaERP\AtualizaERP\bin\Debug\Microsoft.SqlServer.ConnectionInfo.dll
+E:\Desenvolvimento\Projetos\ManDB\AtualizaERP\AtualizaERP\bin\Debug\Microsoft.SqlServer.ConnectionInfoExtended.dll
+E:\Desenvolvimento\Projetos\ManDB\AtualizaERP\AtualizaERP\bin\Debug\Microsoft.SqlServer.Management.Sdk.Sfc.dll
+E:\Desenvolvimento\Projetos\ManDB\AtualizaERP\AtualizaERP\bin\Debug\Microsoft.SqlServer.Smo.dll
+E:\Desenvolvimento\Projetos\ManDB\AtualizaERP\AtualizaERP\bin\Debug\Microsoft.SqlServer.SmoExtended.dll
+E:\Desenvolvimento\Projetos\ManDB\AtualizaERP\AtualizaERP\bin\Debug\Microsoft.SqlServer.SqlClrProvider.dll
+E:\Desenvolvimento\Projetos\ManDB\AtualizaERP\AtualizaERP\bin\Debug\Microsoft.SqlServer.SqlEnum.dll
+E:\Desenvolvimento\Projetos\ManDB\AtualizaERP\AtualizaERP\bin\Debug\DotNetZip.xml
+E:\Desenvolvimento\Projetos\ManDB\AtualizaERP\AtualizaERP\obj\Debug\AtualizaERP.Properties.Resources.resources
+E:\Desenvolvimento\Projetos\ManDB\AtualizaERP\AtualizaERP\obj\Debug\AtualizaERP.Telas.BackupERP.resources
+E:\Desenvolvimento\Projetos\ManDB\AtualizaERP\AtualizaERP\obj\Debug\AtualizaERP.Telas.DownloadERP.resources
+E:\Desenvolvimento\Projetos\ManDB\AtualizaERP\AtualizaERP\obj\Debug\AtualizaERP.Telas.VersaoERP.resources
+E:\Desenvolvimento\Projetos\ManDB\AtualizaERP\AtualizaERP\obj\Debug\AtualizaERP.csproj.GenerateResource.Cache
+E:\Desenvolvimento\Projetos\ManDB\AtualizaERP\AtualizaERP\obj\Debug\AtualizaERP.Telas.Home.resources
+E:\Desenvolvimento\Projetos\ManDB\AtualizaERP\AtualizaERP\obj\Debug\AtualizaERP.Telas.InfoUpdate.resources
+E:\Desenvolvimento\Projetos\ManDB\AtualizaERP\AtualizaERP\obj\Debug\AtualizaERP.Telas.ListaConexoes.resources
+E:\Desenvolvimento\Projetos\ManDB\AtualizaERP\AtualizaERP\bin\Debug\GxClasses.dll
+E:\Desenvolvimento\Projetos\ManDB\AtualizaERP\AtualizaERP\bin\Debug\log4net.dll

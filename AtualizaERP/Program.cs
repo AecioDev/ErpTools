@@ -18,26 +18,6 @@ namespace AtualizaERP
         {
             string[] argumentos = args;
 
-            //string[] argumentos = {"Download", "http://www.controllernet.com.br/controllernovo/download/Arquivos/VersoesERP/5.2019/Controller520190900_02072019.exe", @"C:\Users\aecio.miranda\Downloads", "Controller520190900_02072019.exe", "T"};
-
-            //string[] argumentos = {"Backup", "B", "AECIO_TESTE", "SA", "CONTROLLER.4000", "SRVDEV00", @"\\SRVDEV00\Backup\TESTE_ERP", @"C:\temp\TesteBD" };
-
-            //string[] argumentos = { "Backup", "R", "AECIO_TESTE", "SA", "CONTROLLER.4000", "SRVDEV00", @"\\SRVDEV00\Backup\TESTE_ERP", @"C:\temp\TesteBD" };
-
-            //string[] argumentos = { "Versao", "128", "520190100", "5.2019.01.00", "08/03/2019", "", "", "", "0" };
-
-            //string[] argumentos = { "Home", "42705001", "17.236.676/0001-81", "002", "0", ""};
-
-            //string[] argumentos = { "Atualiza", "C"};
-
-            //string[] argumentos = { "ScriptSQL", "RebuildIDX", "005" };
-
-            //string[] argumentos = { "ScriptSQL", "VerificaBD", "001" };
-
-            //string[] argumentos = { "Agenda", "MASTER", "15/09/2020 23:49:00", "7", "001" };
-
-            //string[] argumentos = { "Alerta", "Tempo Restante", "Mensagem Parte 1", "Mensagem Parte 2", "Usuario", "IdConexao", "DataInicioTarefa" };
-
             //string[] argumentos = { "DelAgenda", "Controller ERP - Rebuild_Idx_B" };
 
             string caminho = "";
@@ -61,6 +41,9 @@ namespace AtualizaERP
 
             switch(argumentos[0])
             {
+                case "ErpSheets": //Argumentos Padrão - 1:Método - 2:C.Custo - 3:ArquivoXML;
+
+
                 case "Alerta": //Argumentos - 1:Tempo Restante; 
                     int tmpRest = 0;
                     DateTime dataIniTask = DateTime.Now;

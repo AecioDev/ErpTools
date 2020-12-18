@@ -94,8 +94,10 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Classes\ErpSheets.cs" />
-    <Compile Include="Classes\GridNotas.cs" />
+    <Compile Include="Classes\ErpSheets\ErpSheets.cs" />
+    <Compile Include="Classes\ErpSheets\GridNotas.cs" />
+    <Compile Include="Classes\ErpSheets\ModelEmpresa.cs" />
+    <Compile Include="Classes\ListaNotas.cs" />
     <Compile Include="Classes\Model\DadosTarefa.cs" />
     <Compile Include="Classes\Dados\AcessoDados.cs" />
     <Compile Include="Classes\Dados\CriaTarefa.cs" />
@@ -106,6 +108,7 @@
     <Compile Include="Classes\Model\ParamEnt.cs" />
     <Compile Include="Classes\Model\VersaoModel.cs" />
     <Compile Include="Classes\Dados\ScriptSQL.cs" />
+    <Compile Include="Classes\Teste.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Telas\BackupERP.cs">
@@ -125,6 +128,12 @@
     </Compile>
     <Compile Include="Telas\DownloadERP.Designer.cs">
       <DependentUpon>DownloadERP.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Telas\GeraPlanilha.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Telas\GeraPlanilha.Designer.cs">
+      <DependentUpon>GeraPlanilha.cs</DependentUpon>
     </Compile>
     <Compile Include="Telas\Home.cs">
       <SubType>Form</SubType>
@@ -173,6 +182,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Telas\DownloadERP.resx">
       <DependentUpon>DownloadERP.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Telas\GeraPlanilha.resx">
+      <DependentUpon>GeraPlanilha.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Telas\Home.resx">
       <DependentUpon>Home.cs</DependentUpon>
@@ -303,8 +315,6 @@
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </COMReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Classes\ErpSheets\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

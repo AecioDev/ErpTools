@@ -16,12 +16,14 @@ namespace AtualizaERP
         [STAThread]
         static void Main(string[] args)
         {
-            string[] argumentos = args;
+            //string[] argumentos = args;
 
-            //string[] argumentos = { "DelAgenda", "Controller ERP - Rebuild_Idx_B" };
+            string[] argumentos = { "ErpSheets", "3", "1", @"C:\Users\aecio\Controller\Notas.xml", "001" };
 
             string caminho = "";
             string param = "";
+            int parmInt = 0, parmInt1 = 0;
+
             CriaTarefa tarefa;
             AcessoDados Dados = new AcessoDados();
 
@@ -41,8 +43,15 @@ namespace AtualizaERP
 
             switch(argumentos[0])
             {
-                case "ErpSheets": //Argumentos Padrão - 1:Método - 2:C.Custo - 3:ArquivoXML;
+                case "ErpSheets": //Argumentos Padrão - 1:Método - 2:C.Custo - 3:ArquivoXML - 4:IDConexao;
+                    if (!string.IsNullOrEmpty(argumentos[1])) //Metodo
+                        parmInt = Convert.ToInt32(argumentos[1]);
 
+                    if (!string.IsNullOrEmpty(argumentos[2])) //Centro de Custo
+                        parmInt1 = Convert.ToInt32(argumentos[2]);
+
+                    Application.Run(new GeraPlanilha(parmInt, parmInt1, argumentos[3], argumentos[4]));
+                    break;
 
                 case "Alerta": //Argumentos - 1:Tempo Restante; 
                     int tmpRest = 0;

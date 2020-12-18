@@ -361,6 +361,111 @@ namespace AtualizaERP.Classes
             return conectado;
         }
 
+        //Dados da Empresa
+        public ModelEmpresa DadosEmpresa(string IDConex, int cencus)
+        {
+            string script = "";
+
+            string nomempimprel  = null;
+            string nomfancencus  = null;
+            byte[] arqlogocencus = null;
+
+            string fanemp = null;
+            string nomemp = null;
+            string verlogo = null;
+            byte[] logoemp = null;
+
+            SqlConnection conexao = null;
+            SqlCommand cmd = null;
+            SqlDataReader rd = null;
+            ModelEmpresa DadosEmp = new ModelEmpresa();
+
+            var conERP = LeConfTXT(IDConex);
+
+            try
+            {
+                //Primeiro Pega os dados do Centro de Custo
+                script = "SELECT nomempimprel, nomfancencus, arqlogocencus FROM CENCUS WHERE codcencus = " + cencus;
+
+                conexao = new SqlConnection(conERP.StringConexao);
+                cmd = new SqlCommand(script, conexao);
+                conexao.Open();
+                rd = cmd.ExecuteReader();
+
+                while (rd.Read())
+                {
+                    nomempimprel  = rd.GetString(0);
+                    nomfancencus  = rd.GetString(1);
+
+                    if(!string.IsNullOrEmpty(rd.GetValue(2).ToString()))
+                        arqlogocencus = (byte[])rd.GetValue(2);
+                }
+                conexao.Close();
+
+                //Segundo Pega os dados da Empresa Padrão
+                script = "SELECT fanemp, nomemp, logorelemp, logoemp FROM EMPRESA WHERE codemp = 1";
+                
+                conexao = new SqlConnection(conERP.StringConexao);
+                cmd = new SqlCommand(script, conexao);
+                conexao.Open();
+                rd = cmd.ExecuteReader();
+
+                while (rd.Read())
+                {
+                    fanemp  = rd.GetString(0);
+                    nomemp  = rd.GetString(1);
+                    verlogo = rd.GetString(2);
+                    logoemp = (byte[])rd.GetValue(3);
+                }
+                conexao.Close();
+
+                //Verifica o nome do centro de Custo
+                if (!string.IsNullOrEmpty(nomempimprel)) 
+                {
+                    DadosEmp.nomeEmp = nomempimprel;
+                }
+                else
+                {
+                    if (!string.IsNullOrEmpty(nomfancencus))
+                        DadosEmp.nomeEmp = nomfancencus;
+                }
+
+                //Se não achou pega o Nome Padrão da Empresa
+                if (string.IsNullOrEmpty(DadosEmp.nomeEmp))
+                {
+                    if (!string.IsNullOrEmpty(fanemp))
+                        DadosEmp.nomeEmp = fanemp;
+                    else
+                        DadosEmp.nomeEmp = nomemp;
+                }
+
+                //Verifica a Logo
+                DadosEmp.logoOk = false;
+
+                if (arqlogocencus.Length > 0)
+                {
+                    DadosEmp.logoEmp = arqlogocencus;
+                    DadosEmp.logoOk = true;
+                }
+
+                if(!DadosEmp.logoOk) //Não Achou no Centro de Custo
+                {
+                    if (verlogo != "N") //Ou pega o da Empresa Padrão e se não tiver pega da pasta do Usuário.
+                    {
+                        DadosEmp.logoOk = true;
+                        if (logoemp != null)
+                            DadosEmp.logoEmp = logoemp;                        
+                    }
+                }
+
+                return DadosEmp;
+            }
+            catch (Exception erro)
+            {
+                GravaErro(erro.Message);
+                return null;
+            }
+        }
 
         //Executa rotina de Manutenção do Banco de Dados 
         public void ManDBERP(string IDConex)

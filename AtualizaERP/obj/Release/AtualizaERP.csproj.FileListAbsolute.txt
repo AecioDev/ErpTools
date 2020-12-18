@@ -138,3 +138,6 @@ E:\Projetos C#\Projetos 2021\ErpTools\AtualizaERP\obj\Release\AtualizaERP.csproj
 E:\Projetos C#\Projetos 2021\ErpTools\AtualizaERP\obj\Release\AtualizaERP.exe
 E:\Projetos C#\Projetos 2021\ErpTools\AtualizaERP\obj\Release\AtualizaERP.pdb
 E:\Projetos C#\Projetos 2021\ErpTools\AtualizaERP\obj\Release\AtualizaERP.XmlSerializers.dll
+E:\Projetos C#\Projetos 2021\ErpTools\AtualizaERP\bin\Release\EPPlus.dll
+E:\Projetos C#\Projetos 2021\ErpTools\AtualizaERP\bin\Release\EPPlus.xml
+E:\Projetos C#\Projetos 2021\ErpTools\AtualizaERP\obj\Release\AtualizaERP.Telas.GeraPlanilha.resources

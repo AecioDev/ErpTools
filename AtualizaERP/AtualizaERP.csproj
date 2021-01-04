@@ -97,7 +97,7 @@
     <Compile Include="Classes\ErpSheets\ErpSheets.cs" />
     <Compile Include="Classes\ErpSheets\GridNotas.cs" />
     <Compile Include="Classes\ErpSheets\ModelEmpresa.cs" />
-    <Compile Include="Classes\ListaNotas.cs" />
+    <Compile Include="Classes\Model\ListaNotas.cs" />
     <Compile Include="Classes\Model\DadosTarefa.cs" />
     <Compile Include="Classes\Dados\AcessoDados.cs" />
     <Compile Include="Classes\Dados\CriaTarefa.cs" />

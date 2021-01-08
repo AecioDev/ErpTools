@@ -18,7 +18,7 @@ namespace AtualizaERP
         {
             //string[] argumentos = args;
 
-            string[] argumentos = { "ErpSheets", "3", "1", @"C:\Users\aecio\Controller\Notas.xml", "001" };
+            string[] argumentos = { "ErpSheets", "1", "1", @"C:\Users\Jean\Controller\TitRec.xml", "011" };
 
             string caminho = "";
             string param = "";
@@ -35,7 +35,7 @@ namespace AtualizaERP
 
             for (int i = 0; i < argumentos.Length; i++)
             {
-                param += "Arugumento: " + i.ToString() + " = " + argumentos[i] + "\n";
+                param += "Argumento: " + i.ToString() + " = " + argumentos[i] + "\n";
             }
 
             Dados.GravaErro(param);

@@ -95,8 +95,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Classes\ErpSheets\ErpSheets.cs" />
+    <Compile Include="Classes\ErpSheets\GridTitulos.cs" />
     <Compile Include="Classes\ErpSheets\GridNotas.cs" />
     <Compile Include="Classes\ErpSheets\ModelEmpresa.cs" />
+    <Compile Include="Classes\Model\ListaTitulos.cs" />
     <Compile Include="Classes\Model\ListaNotas.cs" />
     <Compile Include="Classes\Model\DadosTarefa.cs" />
     <Compile Include="Classes\Dados\AcessoDados.cs" />
@@ -198,6 +200,9 @@
     <EmbeddedResource Include="Telas\VersaoERP.resx">
       <DependentUpon>VersaoERP.cs</DependentUpon>
     </EmbeddedResource>
+    <None Include="..\.editorconfig">
+      <Link>.editorconfig</Link>
+    </None>
     <None Include="packages.config" />
     <None Include="Properties\DataSources\AtualizaERP.Classes.AcessoDados.datasource" />
     <None Include="Properties\Settings.settings">

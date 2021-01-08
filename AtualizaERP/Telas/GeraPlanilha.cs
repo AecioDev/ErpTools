@@ -34,10 +34,14 @@ namespace AtualizaERP.Telas
             {
                 case 1: //MAN-2164: Consulta de Titulos a Receber
                     lb_Cab.Text = "Planilha da Consulta de Títulos à Receber";
+                    ArqExcel = @"\GridTitulosReceber.xlsx";
+                    tb_PatchPadrao.Text = PastaUser + @"\Controller" + ArqExcel;
                     break;
 
                 case 2: //MAN-2164: Consulta de Titulos a Pagar
                     lb_Cab.Text = "Planilha da Consulta de Títulos à Pagar";
+                    ArqExcel = @"\GridTitulosPagar.xlsx";
+                    tb_PatchPadrao.Text = PastaUser + @"\Controller" + ArqExcel;
                     break;
 
                 case 3: //MAN-2368: Consulta de Notas
@@ -73,11 +77,32 @@ namespace AtualizaERP.Telas
             switch (Metodo)
             {
                 case 1: //MAN-2164: Consulta de Titulos a Receber
-                    
+
+                    GridTitulos titulosR = new GridTitulos();
+                    titulosR.ArqExcel = tb_PatchPadrao.Text;
+                    titulosR.CodCenCus = CodCenCus;
+                    titulosR.GeraCab = GeraCab;
+                    titulosR.IDConex = IdConex;
+                    titulosR.PastaUser = PastaUser;
+                    titulosR.PatchXml = PatchXML;
+                    titulosR.tipRel = "R";
+                    titulosR.NomeRelat = "Grid Consulta de Títulos a Receber";
+
+                    titulosR.GeraPlanilha();
                     break;
 
                 case 2: //MAN-2164: Consulta de Titulos a Pagar
-                    
+                    GridTitulos titulosP = new GridTitulos();
+                    titulosP.ArqExcel = tb_PatchPadrao.Text;
+                    titulosP.CodCenCus = CodCenCus;
+                    titulosP.GeraCab = GeraCab;
+                    titulosP.IDConex = IdConex;
+                    titulosP.PastaUser = PastaUser;
+                    titulosP.PatchXml = PatchXML;
+                    titulosP.tipRel = "A";
+                    titulosP.NomeRelat = "Grid Consulta de Títulos a Pagar";
+
+                    titulosP.GeraPlanilha();
                     break;
 
                 case 3: //MAN-2368: Consulta de Notas

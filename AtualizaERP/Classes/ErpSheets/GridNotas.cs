@@ -61,7 +61,12 @@ namespace AtualizaERP.Classes
                     cel1 = "C" + ln; //Emissão
                     ws.Cells[cel1].Style.Numberformat.Format = "dd/MM/yyyy";
                     ws.Cells[cel1].Style.HorizontalAlignment = HCentro;
-                    ws.Cells[cel1].Value = nota.datemientsai.ToShortDateString();
+
+                    string datemientsai = nota.datemientsai.ToShortDateString();
+                    if (datemientsai != "0000-00-00")
+                    {
+                        ws.Cells[cel1].Value = datemientsai;
+                    }
 
                     cel1 = "D" + ln; //Série
                     ws.Cells[cel1].Style.Numberformat.Format = "@";
@@ -79,14 +84,11 @@ namespace AtualizaERP.Classes
 
 
                     cel1 = "G" + ln; //Nome - Cliente/Fornecedor
-                    ws.Cells[cel1].Style.Numberformat.Format = "@";
                     ws.Cells[cel1].Value = nota.nomentsai;
-
 
                     cel1 = "H" + ln; //Valor
                     ws.Cells[cel1].Style.Numberformat.Format = "_-R$ * #.##0,00_-;-R$ * #.##0,00_-;_-R$ * '-'??_-;_-@_-";
                     ws.Cells[cel1].Value = nota.totgerfinentsai;
-
 
                     cel1 = "I" + ln; //Status
                     ws.Cells[cel1].Style.Numberformat.Format = "@";
@@ -145,11 +147,9 @@ namespace AtualizaERP.Classes
                     ws.Cells[cel1].Value = nota.codtra;
 
                     cel1 = "Q" + ln; //Transportadora
-                    ws.Cells[cel1].Style.Numberformat.Format = "@";
                     ws.Cells[cel1].Value = nota.nomtra;
 
                     cel1 = "R" + ln; //Observações
-                    ws.Cells[cel1].Style.Numberformat.Format = "@";
                     ws.Cells[cel1].Value = nota.obsentsai;
 
                     ln++;
@@ -254,7 +254,7 @@ namespace AtualizaERP.Classes
                     lnIni = 6;
                 }
 
-             //Nome e Tamanho das Colunas do Cabeçalho                
+                //Nome e Tamanho das Colunas do Cabeçalho                
                 cel1 = "A" + lnIni;
                 ws.Cells[cel1].Value = "Desc. Tipo de Nota";
                 ws.Column(1).Width = 30.00D;
@@ -281,11 +281,11 @@ namespace AtualizaERP.Classes
 
                 cel1 = "G" + lnIni;
                 ws.Cells[cel1].Value = "Nome";
-                ws.Column(7).Width = 40.00D;
+                ws.Column(7).Width = 42.00D;
 
                 cel1 = "H" + lnIni;
                 ws.Cells[cel1].Value = "Valor";
-                ws.Column(8).Width = 15.00D;
+                ws.Column(8).Width = 20.00D;
 
                 cel1 = "I" + lnIni;
                 ws.Cells[cel1].Value = "Status";
@@ -322,7 +322,7 @@ namespace AtualizaERP.Classes
 
                 cel1 = "Q" + lnIni;
                 ws.Cells[cel1].Value = "Transportadora";
-                ws.Column(17).Width = 30.00D;
+                ws.Column(17).Width = 38.00D;
 
                 cel1 = "R" + lnIni;
                 ws.Cells[cel1].Value = "Observações";

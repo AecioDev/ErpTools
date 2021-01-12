@@ -99,7 +99,7 @@ namespace AtualizaERP.Telas
                     titulosP.IDConex = IdConex;
                     titulosP.PastaUser = PastaUser;
                     titulosP.PatchXml = PatchXML;
-                    titulosP.tipRel = "A";
+                    titulosP.tipRel = "P";
                     titulosP.NomeRelat = "Grid Consulta de Títulos a Pagar";
 
                     titulosP.GeraPlanilha();
@@ -117,7 +117,6 @@ namespace AtualizaERP.Telas
                     notas.NomeRelat = "Grid Consulta de Notas";
 
                     notas.GeraPlanilha();
-
                     break;
             }
             
@@ -133,7 +132,7 @@ namespace AtualizaERP.Telas
             }
             catch (Exception)
             {
-                MessageBox.Show("Não foi possível abrir a planilha Automáticamente!!! Deseja ver o Arquivo na Pasta?", "Controller ERP");
+                MessageBox.Show("Não foi possível abrir a Planilha Automaticamente!!! Deseja ver o Arquivo na Pasta?", "Controller ERP");
             }
         }
     }

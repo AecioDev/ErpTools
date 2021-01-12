@@ -18,7 +18,7 @@ namespace AtualizaERP
         {
             //string[] argumentos = args;
 
-            string[] argumentos = { "ErpSheets", "1", "1", @"C:\Users\Jean\Controller\TitRec.xml", "011" };
+            string[] argumentos = { "ErpSheets", "2", "1", @"C:\Users\Jean\Controller\TitPag.xml", "011" };
 
             string caminho = "";
             string param = "";

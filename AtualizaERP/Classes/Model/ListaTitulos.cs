@@ -5,24 +5,24 @@ using System.Xml.Serialization;
 
 namespace AtualizaERP.Classes
 {
+    //Replace 1 - SdtListaNotas.SdtListaNotasItem -> Nota
+    //Replace 2 - SdtListaNotas -> ListaNotas
+    //Replace 3 - SdtTitulosExcel -> Titulos
 
-    // OBSERVAÇÃO: o código gerado pode exigir pelo menos .NET Framework 4.5 ou .NET Core/Standard 2.0.
-    /// <remarks/>
-    [System.SerializableAttribute()]
+    [System.Serializable()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true)]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "", IsNullable = false)]
-    public partial class Titulos
+    public class ListaTitulos
     {
         [XmlElement("Titulo")]
         public List<Titulo> ListaDeTitulos = new List<Titulo>();
     }
 
     /// <remarks/>
-    [System.SerializableAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "ControllerERP")]
-    [System.Xml.Serialization.XmlRootAttribute(Namespace = "ControllerERP", IsNullable = false)]
+    [Serializable()]
+    [System.ComponentModel.DesignerCategory("code")]
+    [XmlType(AnonymousType = true)]
     public partial class Titulo
     {
 
@@ -176,7 +176,7 @@ namespace AtualizaERP.Classes
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(DataType = "date")]
+        [XmlElement(DataType = "date")]
         public DateTime datventit
         {
             get
@@ -242,7 +242,7 @@ namespace AtualizaERP.Classes
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(DataType = "date")]
+        [XmlElement(DataType = "date")]
         public DateTime emitit
         {
             get
@@ -399,7 +399,7 @@ namespace AtualizaERP.Classes
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(DataType = "date")]
+        [XmlElement(DataType = "date")]
         public DateTime ventit
         {
             get

@@ -18,11 +18,18 @@ namespace AtualizaERP
         {
             //string[] argumentos = args;
 
-            string[] argumentos = { "ErpSheets", "1", "1", @"C:\Users\Jean\Controller\TitRec.xml", "011" };
+            string[] argumentos = { "ErpSheets", "1", "1", "Parametros", @"C:\Users\aecio\Controller\TitRec.xml", "001" };
 
             string caminho = "";
             string param = "";
             int parmInt = 0, parmInt1 = 0;
+
+            DirectoryInfo dir;
+            caminho = @"C:\Temp"; //Cria a Pasta Temp
+            if (!Directory.Exists(caminho))
+            {
+                dir = Directory.CreateDirectory(caminho);
+            }
 
             CriaTarefa tarefa;
             AcessoDados Dados = new AcessoDados();
@@ -94,13 +101,6 @@ namespace AtualizaERP
 
                 case "ScriptSQL": //Exemplo Chamada: string[] argumentos = { "ScriptSQL", "RebuildIDX", "005"};
                                         
-                    DirectoryInfo dir;
-                    caminho = @"C:\Temp"; //Cria a Pasta Temp
-                    if (!Directory.Exists(caminho))
-                    {
-                        dir = Directory.CreateDirectory(caminho);
-                    }
-
                     caminho = @"C:\Controller\DebugRebuildIdx"; //Cria a Pasta de Debug
                     if (!Directory.Exists(caminho))
                     {

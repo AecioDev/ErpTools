@@ -9,16 +9,22 @@ namespace AtualizaERP.Telas
     {
         private int CodCenCus;
         private int Metodo;
+        private string Parametros;
         private string PatchXML;
         private string IdConex;
         private string PastaUser;
         private string ArqExcel;
         private bool GeraCab;
 
-        public GeraPlanilha(int _metodo, int _cencus, string _patchXML, string _idConex)
+        //Planejamento ORçamentário
+        private string AgrpCus;
+        private int NumMeses;
+
+
+        public GeraPlanilha(int _metodo, string _parametros, string _patchXML, string _idConex)
         {
             Metodo = _metodo;
-            CodCenCus = _cencus;
+            Parametros = _parametros;
             PatchXML = _patchXML;
             IdConex = _idConex;
 
@@ -29,6 +35,10 @@ namespace AtualizaERP.Telas
         {
             PastaUser = Environment.GetEnvironmentVariable("USERPROFILE");
             cb_GeraCab.SelectedIndex = 0; //Sem cabeçalho
+
+            var DadosParam = Parametros.Split('|');
+            if (!string.IsNullOrEmpty(DadosParam[0].ToString()))
+                CodCenCus = Convert.ToInt32(DadosParam[0].ToString());
 
             switch (Metodo)
             {
@@ -48,6 +58,19 @@ namespace AtualizaERP.Telas
                     lb_Cab.Text = "Planilha da Grid de Notas";
                     ArqExcel = @"\GridNotas.xlsx";
                     tb_PatchPadrao.Text = PastaUser + @"\Controller" + ArqExcel;
+
+                    break;
+
+                case 20: //MAN-2368: Consulta de Notas
+                    lb_Cab.Text = "Planejamento Orçamentário";
+                    ArqExcel = @"\PlanOrc.xlsx";
+                    tb_PatchPadrao.Text = PastaUser + @"\Controller" + ArqExcel;
+
+                    AgrpCus = DadosParam[1].ToString();
+                    if (!string.IsNullOrEmpty(DadosParam[2].ToString()))
+                        NumMeses = Convert.ToInt32(DadosParam[2].ToString());
+
+
 
                     break;
             }

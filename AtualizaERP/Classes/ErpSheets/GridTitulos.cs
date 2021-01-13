@@ -211,7 +211,7 @@ namespace AtualizaERP.Classes
             FileInfo ExCab = new FileInfo(ArqExcel);
             using (ExcelPackage pakCab = new ExcelPackage(ExCab))
             {
-                ExcelWorksheet ws = pakCab.Workbook.Worksheets.Add("Grid Notas");
+                ExcelWorksheet ws = pakCab.Workbook.Worksheets.Add("Grid Titulos");
                 OfficeOpenXml.Style.ExcelHorizontalAlignment HCentro = OfficeOpenXml.Style.ExcelHorizontalAlignment.Center;
                 OfficeOpenXml.Style.ExcelVerticalAlignment VCentro = OfficeOpenXml.Style.ExcelVerticalAlignment.Center;
                 OfficeOpenXml.Style.ExcelHorizontalAlignment HLeft = OfficeOpenXml.Style.ExcelHorizontalAlignment.Left;

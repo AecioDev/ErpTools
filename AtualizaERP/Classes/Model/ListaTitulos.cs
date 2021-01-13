@@ -12,7 +12,7 @@ namespace AtualizaERP.Classes
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true)]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "", IsNullable = false)]
-    public partial class Titulos
+    public class Titulos
     {
         [XmlElement("Titulo")]
         public List<Titulo> ListaDeTitulos = new List<Titulo>();

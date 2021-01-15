@@ -16,10 +16,23 @@ namespace AtualizaERP.Telas
         private string ArqExcel;
         private bool GeraCab;
 
+<<<<<<< HEAD
+<<<<<<< HEAD
+        //Planejamento Orçamentário
+        private string AgrpCus;
+        private int NumMeses;
+        private string DadosParam;
+=======
+=======
+>>>>>>> a3323c9cb1bdf99d479f574520a523c5920abbe8
         //Planejamento ORçamentário
         private string AgrpCus;
         private int NumMeses;
 
+<<<<<<< HEAD
+>>>>>>> a3323c9cb1bdf99d479f574520a523c5920abbe8
+=======
+>>>>>>> a3323c9cb1bdf99d479f574520a523c5920abbe8
 
         public GeraPlanilha(int _metodo, string _parametros, string _patchXML, string _idConex)
         {
@@ -70,8 +83,16 @@ namespace AtualizaERP.Telas
                     if (!string.IsNullOrEmpty(DadosParam[2].ToString()))
                         NumMeses = Convert.ToInt32(DadosParam[2].ToString());
 
+<<<<<<< HEAD
+<<<<<<< HEAD
+=======
 
 
+>>>>>>> a3323c9cb1bdf99d479f574520a523c5920abbe8
+=======
+
+
+>>>>>>> a3323c9cb1bdf99d479f574520a523c5920abbe8
                     break;
             }
         }

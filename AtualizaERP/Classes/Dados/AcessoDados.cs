@@ -442,7 +442,7 @@ namespace AtualizaERP.Classes
                 //Verifica a Logo
                 DadosEmp.logoOk = false;
 
-                if (arqlogocencus.Length > 0)
+                if (arqlogocencus != null) 
                 {
                     DadosEmp.logoEmp = arqlogocencus;
                     DadosEmp.logoOk = true;

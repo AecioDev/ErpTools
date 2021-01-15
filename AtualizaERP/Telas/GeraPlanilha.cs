@@ -16,23 +16,10 @@ namespace AtualizaERP.Telas
         private string ArqExcel;
         private bool GeraCab;
 
-<<<<<<< HEAD
-<<<<<<< HEAD
         //Planejamento Orçamentário
         private string AgrpCus;
         private int NumMeses;
         private string DadosParam;
-=======
-=======
->>>>>>> a3323c9cb1bdf99d479f574520a523c5920abbe8
-        //Planejamento ORçamentário
-        private string AgrpCus;
-        private int NumMeses;
-
-<<<<<<< HEAD
->>>>>>> a3323c9cb1bdf99d479f574520a523c5920abbe8
-=======
->>>>>>> a3323c9cb1bdf99d479f574520a523c5920abbe8
 
         public GeraPlanilha(int _metodo, string _parametros, string _patchXML, string _idConex)
         {
@@ -48,10 +35,6 @@ namespace AtualizaERP.Telas
         {
             PastaUser = Environment.GetEnvironmentVariable("USERPROFILE");
             cb_GeraCab.SelectedIndex = 0; //Sem cabeçalho
-
-            var DadosParam = Parametros.Split('|');
-            if (!string.IsNullOrEmpty(DadosParam[0].ToString()))
-                CodCenCus = Convert.ToInt32(DadosParam[0].ToString());
 
             switch (Metodo)
             {
@@ -74,7 +57,7 @@ namespace AtualizaERP.Telas
 
                     break;
 
-                case 20: //MAN-2368: Consulta de Notas
+                case 20: //Planejamento Orçamentário
                     lb_Cab.Text = "Planejamento Orçamentário";
                     ArqExcel = @"\PlanOrc.xlsx";
                     tb_PatchPadrao.Text = PastaUser + @"\Controller" + ArqExcel;
@@ -83,16 +66,6 @@ namespace AtualizaERP.Telas
                     if (!string.IsNullOrEmpty(DadosParam[2].ToString()))
                         NumMeses = Convert.ToInt32(DadosParam[2].ToString());
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-
-
->>>>>>> a3323c9cb1bdf99d479f574520a523c5920abbe8
-=======
-
-
->>>>>>> a3323c9cb1bdf99d479f574520a523c5920abbe8
                     break;
             }
         }
@@ -143,7 +116,7 @@ namespace AtualizaERP.Telas
                     titulosP.IDConex = IdConex;
                     titulosP.PastaUser = PastaUser;
                     titulosP.PatchXml = PatchXML;
-                    titulosP.tipRel = "A";
+                    titulosP.tipRel = "P";
                     titulosP.NomeRelat = "Grid Consulta de Títulos a Pagar";
 
                     titulosP.GeraPlanilha();
@@ -161,10 +134,24 @@ namespace AtualizaERP.Telas
                     notas.NomeRelat = "Grid Consulta de Notas";
 
                     notas.GeraPlanilha();
-
                     break;
+
+                case 20: //Planejamento Orçamentário
+
+                    PlanOrcamentario planejamento = new PlanOrcamentario();
+                    planejamento.ArqExcel = tb_PatchPadrao.Text;
+                    planejamento.CodCenCus = CodCenCus;
+                    planejamento.GeraCab = GeraCab;
+                    planejamento.IDConex = IdConex;
+                    planejamento.PastaUser = PastaUser;
+                    planejamento.PatchXml = PatchXML;
+                    planejamento.NomeRelat = "Planejamento Orçamentário";
+
+                    planejamento.GeraPlanilha();
+                    break;
+
             }
-            
+
             //Verifica se Pode Abrir a Planilha.
             try
             {
@@ -177,7 +164,7 @@ namespace AtualizaERP.Telas
             }
             catch (Exception)
             {
-                MessageBox.Show("Não foi possível abrir a planilha Automáticamente!!! Deseja ver o Arquivo na Pasta?", "Controller ERP");
+                MessageBox.Show("Não foi possível abrir a Planilha Automaticamente!!! Deseja ver o Arquivo na Pasta?", "Controller ERP");
             }
         }
     }

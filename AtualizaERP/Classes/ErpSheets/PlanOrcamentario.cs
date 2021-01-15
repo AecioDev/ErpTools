@@ -7,11 +7,13 @@ using OfficeOpenXml;
 
 namespace AtualizaERP.Classes
 {
-    class GridTitulos : ErpSheets
+    class PlanOrcamentario : ErpSheets
     {
         private int lnIni = 0, ln = 0;
         private string cel1 = "", cel2 = "";
         private string descTerceiro;
+        private string cabmes, mesChar;
+        private int mesVez = 0, AnoVez = 0, NumMeses = 0;
 
         public string tipRel { get; set; }
 
@@ -20,7 +22,7 @@ namespace AtualizaERP.Classes
             //Define Uso Não Comercial
             ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
             if (!string.IsNullOrEmpty(ArqExcel))
-                ArqExcel = PastaUser + @"\Controller\GridTitulos.xlsx";
+                ArqExcel = PastaUser + @"\Controller\Planejamento_Orçamentário.xlsx";
 
             FileInfo Exfile = new FileInfo(ArqExcel);
             if (Exfile.Exists)
@@ -43,145 +45,26 @@ namespace AtualizaERP.Classes
             lnIni += 1; //Ajusta a Linha Inicial dos Dados para usar no final.
             ln = lnIni; //Variável que será utilizada na geração dos dados.
 
-            ListaTitulos Titulos = CarregaXML();
+            ListaPlanejamento Planejamentos = CarregaXML();
 
             using (ExcelPackage package = new ExcelPackage(Exfile))
             {
-                ExcelWorksheet ws = package.Workbook.Worksheets["Grid Titulos"]; //Recupera a planilha para edição.
+                ExcelWorksheet ws = package.Workbook.Worksheets["Planejamento Orçamentário"]; //Recupera a planilha para edição.
                 OfficeOpenXml.Style.ExcelHorizontalAlignment HCentro = OfficeOpenXml.Style.ExcelHorizontalAlignment.Center;
                 OfficeOpenXml.Style.ExcelVerticalAlignment VCentro = OfficeOpenXml.Style.ExcelVerticalAlignment.Center;
                 OfficeOpenXml.Style.ExcelHorizontalAlignment HLeft = OfficeOpenXml.Style.ExcelHorizontalAlignment.Left;
 
-                foreach (Titulo titulo in Titulos.ListaDeTitulos)
+                foreach (Plano Plano in Planejamentos.ListaDePlanejamentos)
                 {
-                    cel1 = "A" + ln; //Sequencia
-                    ws.Cells[cel1].Style.Numberformat.Format = "0";
-                    ws.Cells[cel1].Value = titulo.seqtit;
+        
 
-                    cel1 = "B" + ln; //Emissão
-                    ws.Cells[cel1].Style.Numberformat.Format = "dd/mm/yyyy";
-                    ws.Cells[cel1].Style.HorizontalAlignment = HCentro;
 
-                    string emitit = titulo.emitit.ToShortDateString();
-                    if (emitit != "0000-00-00")
-                    {
-                        ws.Cells[cel1].Value = emitit;
-                    }
 
-                    cel1 = "C" + ln; //Documento 
-                    ws.Cells[cel1].Style.Numberformat.Format = "@";
-                    ws.Cells[cel1].Value = titulo.numdoctit;
 
-                    cel1 = "D" + ln; //Parcela
-                    ws.Cells[cel1].Style.Numberformat.Format = "@";
-                    ws.Cells[cel1].Value = titulo.txtpartit;
 
-                    cel1 = "E" + ln; //Código - Cliente/Fornecedor
-                    ws.Cells[cel1].Style.Numberformat.Format = "0";
-                    ws.Cells[cel1].Value = titulo.codclifor;
 
-                    cel1 = "F" + ln; //Nome - Cliente/Fornecedor
-                    ws.Cells[cel1].Value = titulo.nomclifor;
 
-                    cel1 = "G" + ln; //Data de Vencimento do Título
-                    ws.Cells[cel1].Style.Numberformat.Format = "dd/mm/yyyy";
-                    ws.Cells[cel1].Style.HorizontalAlignment = HCentro;
 
-                    string datventit = titulo.datventit.ToShortDateString();
-                    if (datventit != "0000-00-00")
-                    {
-                        ws.Cells[cel1].Value = datventit;
-                    }
-
-                    cel1 = "H" + ln; //Valor
-                    ws.Cells[cel1].Style.Numberformat.Format = "_-R$ * #.##0,00_-;_-R$ * '-'??_-;_-@_-";
-                    ws.Cells[cel1].Value = titulo.valtit;
-
-                    cel1 = "I" + ln; //Saldo
-                    ws.Cells[cel1].Style.Numberformat.Format = "_-R$ * #.##0,00_-;_-R$ * '-'??_-;_-@_-"; //"_-R$ * #.##0,00_-;-R$ * #.##0,00_-;_-R$ * '-'??_-;_-@_-";
-                    ws.Cells[cel1].Value = titulo.saltit;
-
-                    cel1 = "J" + ln; //Dias
-                    ws.Cells[cel1].Style.Numberformat.Format = "0";
-                    ws.Cells[cel1].Value = titulo.diasventit;
-
-                    cel1 = "K" + ln; //Último Pagamento  
-                    ws.Cells[cel1].Style.Numberformat.Format = "dd/mm/yyyy";
-                    ws.Cells[cel1].Style.HorizontalAlignment = HCentro;
-
-                    string datultpag = titulo.datultpag;
-                    if (datultpag != "0000-00-00")
-                    {
-                        ws.Cells[cel1].Value = datultpag;
-                    }
-
-                    cel1 = "L" + ln; //Nosso Número
-                    ws.Cells[cel1].Style.Numberformat.Format = "@";
-                    ws.Cells[cel1].Value = titulo.numbantit;
-
-                    cel1 = "M" + ln; //Código
-                    ws.Cells[cel1].Style.Numberformat.Format = "0";
-                    ws.Cells[cel1].Value = titulo.codventit;
-
-                    cel1 = "N" + ln; //Vendedor
-                    ws.Cells[cel1].Style.Numberformat.Format = "@";
-                    ws.Cells[cel1].Value = titulo.nomventit;
-
-                    cel1 = "O" + ln; //Código
-                    ws.Cells[cel1].Style.Numberformat.Format = "0";
-                    ws.Cells[cel1].Value = titulo.codloccob;
-
-                    cel1 = "P" + ln; //Local de Cobrança
-                    ws.Cells[cel1].Style.Numberformat.Format = "@";
-                    ws.Cells[cel1].Value = titulo.desloccob;
-
-                    cel1 = "Q" + ln; //Espécie
-                    ws.Cells[cel1].Style.Numberformat.Format = "@";
-                    ws.Cells[cel1].Value = titulo.espdoctit;
-
-                    cel1 = "R" + ln; //Aceite
-                    ws.Cells[cel1].Style.Numberformat.Format = "@";
-                    ws.Cells[cel1].Value = titulo.acestatit;
-
-                    cel1 = "S" + ln; //Data Aceite
-                    ws.Cells[cel1].Style.Numberformat.Format = "dd/mm/yyyy";
-                    ws.Cells[cel1].Style.HorizontalAlignment = HCentro;
-
-                    string acedattit = titulo.acedattit;
-                    if (acedattit != "0000-00-00")
-                    {
-                        ws.Cells[cel1].Value = acedattit;
-                    }
-
-                    cel1 = "T" + ln; //Usuário Aceite
-                    ws.Cells[cel1].Style.Numberformat.Format = "@";
-                    ws.Cells[cel1].Value = titulo.aceusutit;
-
-                    cel1 = "U" + ln; //Título Renegociado
-                    ws.Cells[cel1].Style.Numberformat.Format = "0";
-                    ws.Cells[cel1].Value = titulo.renorig;
-
-                    cel1 = "V" + ln; //Vencimento Original
-                    ws.Cells[cel1].Style.Numberformat.Format = "dd/mm/yyyy";
-                    ws.Cells[cel1].Style.HorizontalAlignment = HCentro;
-
-                    string ventit = titulo.ventit.ToShortDateString();
-                    if (ventit != "0000-00-00")
-                    {
-                        ws.Cells[cel1].Value = ventit;
-                    }
-
-                    cel1 = "W" + ln; //Referência Cliente
-                    ws.Cells[cel1].Style.Numberformat.Format = "@";
-                    ws.Cells[cel1].Value = titulo.codimpcli;
-
-                    cel1 = "X" + ln; //CPF/CNPJ
-                    ws.Cells[cel1].Style.Numberformat.Format = "@";
-                    ws.Cells[cel1].Value = titulo.cnpjclifor;
-
-                    cel1 = "Y" + ln; //Observações
-                    ws.Cells[cel1].Style.Numberformat.Format = "@";
-                    ws.Cells[cel1].Value = titulo.obstit;
 
                     ln++;
                 }
@@ -287,16 +170,45 @@ namespace AtualizaERP.Classes
 
                 //Nome e Tamanho das Colunas do Cabeçalho                
                 cel1 = "A" + lnIni;
-                ws.Cells[cel1].Value = "Sequência";
-                ws.Column(1).Width = 10.00D;
+                ws.Cells[cel1].Value = "ESTRUTURA";
+                ws.Column(1).Width = 14.00D;
 
                 cel1 = "B" + lnIni;
-                ws.Cells[cel1].Value = "Emissão";
-                ws.Column(2).Width = 12.00D;
+                ws.Cells[cel1].Value = "CÓDIGO";
+                ws.Column(2).Width = 10.00D;
 
                 cel1 = "C" + lnIni;
-                ws.Cells[cel1].Value = "Documento";
-                ws.Column(3).Width = 20.00D;
+                ws.Cells[cel1].Value = "NOMENCLATURA";
+                ws.Column(3).Width = 50.00D;
+
+               cabmes = mesChar + AnoVez.ToString();
+
+                //foreach XMes = 1 in NumMeses
+                //    cabmes = trim(str(&MesVez)) + '/' + trim(str(&AnoVez))
+                //    call(PAjusTXT, &cabmes, 7, 'D', '0', &CabChar)
+                //    VB ws.Cells([!&Linhas!], [!&ColExcel!]).Value = [!&CabChar!]
+                //    & LinhaAbaixo = &Linhas + 1
+                //    if &IncProj = 'S'
+                //       VB ws.Cells([!&LinhaAbaixo!], [!&ColExcel!]).ColumnWidth = 12
+                //       VB ws.Cells([!&LinhaAbaixo!], [!&ColExcel!]).Value = [!&Previsto!]
+                //       & ColExcel = &ColExcel + 1
+                //    endif
+                //    if &IncReal = 'S'
+                //       VB ws.Cells([!&LinhaAbaixo!], [!&ColExcel!]).ColumnWidth = 12
+                //       VB ws.Cells([!&LinhaAbaixo!], [!&ColExcel!]).Value = [!&Realizado!]
+                //       & ColExcel = &ColExcel + 1
+                //    endif
+                //    if &IncDif = 'S'.and. & IncProj = 'S'.and. & IncReal = 'S'
+                //       VB ws.Cells([!&LinhaAbaixo!], [!&ColExcel!]).ColumnWidth = 12
+                //       VB ws.Cells([!&LinhaAbaixo!], [!&ColExcel!]).Value = [!&Diferenca!]
+                //       & ColExcel = &ColExcel + 1
+                //    endif
+                //    & MesVez = &MesVez + 1
+                //    if &MesVez > 12
+                //       & MesVez = 1
+                //       & AnoVez = &AnoVez + 1
+                //    endif
+                //endfor
 
                 cel1 = "D" + lnIni;
                 ws.Cells[cel1].Value = "Parcela";
@@ -411,12 +323,12 @@ namespace AtualizaERP.Classes
             }
         }
 
-        private ListaTitulos CarregaXML()
+        private ListaPlanejamento CarregaXML()
         {
-            XmlSerializer deserializer = new XmlSerializer(typeof(ListaTitulos));
+            XmlSerializer deserializer = new XmlSerializer(typeof(ListaPlanejamento));
             TextReader reader = new StreamReader(PatchXml);
             object obj = deserializer.Deserialize(reader);
-            ListaTitulos XmlData = (ListaTitulos)obj;
+            ListaPlanejamento XmlData = (ListaPlanejamento)obj;
             reader.Close();
 
             return XmlData;

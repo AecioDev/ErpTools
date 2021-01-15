@@ -95,9 +95,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Classes\ErpSheets\ErpSheets.cs" />
+    <Compile Include="Classes\ErpSheets\PlanOrcamentario.cs" />
     <Compile Include="Classes\ErpSheets\GridTitulos.cs" />
     <Compile Include="Classes\ErpSheets\GridNotas.cs" />
     <Compile Include="Classes\ErpSheets\ModelEmpresa.cs" />
+    <Compile Include="Classes\Model\ListaPlanejamento.cs" />
     <Compile Include="Classes\Model\ListaTitulos.cs" />
     <Compile Include="Classes\Model\ListaNotas.cs" />
     <Compile Include="Classes\Model\DadosTarefa.cs" />

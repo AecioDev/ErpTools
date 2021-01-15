@@ -13,16 +13,16 @@ namespace AtualizaERP.Classes
         private string cel1 = "", cel2 = "";
 
         public void GeraPlanilha()
-        {            
+        {
             //Define Uso Não Comercial
             ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
             if (!string.IsNullOrEmpty(ArqExcel))
                 ArqExcel = PastaUser + @"\Controller\GridNotas.xlsx";
 
-            FileInfo Exfile = new FileInfo(ArqExcel);                        
+            FileInfo Exfile = new FileInfo(ArqExcel);
             if (Exfile.Exists)
             {
-                if(ArquivoEmUso(ArqExcel))
+                if (ArquivoEmUso(ArqExcel))
                 {
                     MessageBox.Show("Parece que a Planilha já esta Aberta! É necessário fechá-la antes de gerar uma nova.", "Ops! Algo deu Errado.", MessageBoxButton.OK, MessageBoxImage.Information);
                     return;
@@ -92,7 +92,7 @@ namespace AtualizaERP.Classes
 
                     cel1 = "I" + ln; //Status
                     ws.Cells[cel1].Style.Numberformat.Format = "@";
-                    switch(nota.staentsai)
+                    switch (nota.staentsai)
                     {
                         case "A":
                             ws.Cells[cel1].Value = "Atualizada";
@@ -157,7 +157,7 @@ namespace AtualizaERP.Classes
 
                 //Gera as Bordas dos Dados impressos
                 cel1 = "A" + lnIni;
-                cel2 = "R" + ln;                               
+                cel2 = "R" + ln;
                 ws.Cells[cel1 + ":" + cel2].Style.Border.Left.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
                 ws.Cells[cel1 + ":" + cel2].Style.Border.BorderAround(OfficeOpenXml.Style.ExcelBorderStyle.Thick);
 
@@ -185,7 +185,7 @@ namespace AtualizaERP.Classes
         }
 
         private void CabecalhoGeral()
-        {            
+        {
             string dataAtual = DateTime.Now.ToShortDateString();
             string horaAtual = DateTime.Now.ToShortTimeString();
             ModelEmpresa dadosRel = new ModelEmpresa();
@@ -199,7 +199,7 @@ namespace AtualizaERP.Classes
                 OfficeOpenXml.Style.ExcelHorizontalAlignment HCentro = OfficeOpenXml.Style.ExcelHorizontalAlignment.Center;
                 OfficeOpenXml.Style.ExcelVerticalAlignment VCentro = OfficeOpenXml.Style.ExcelVerticalAlignment.Center;
                 OfficeOpenXml.Style.ExcelHorizontalAlignment HLeft = OfficeOpenXml.Style.ExcelHorizontalAlignment.Left;
-                
+
                 lnIni = 1;
                 if (GeraCab)
                 {
@@ -213,7 +213,7 @@ namespace AtualizaERP.Classes
                         picture.SetPosition(3, 3);
                         picture.SetSize(205, 105);
                     }
-                                        
+
                     //Controller                
                     ws.Cells["B1:Q2"].Merge = true;
                     ws.Cells["B1"].Value = "CONTROLLER ERP";
@@ -289,7 +289,7 @@ namespace AtualizaERP.Classes
 
                 cel1 = "I" + lnIni;
                 ws.Cells[cel1].Value = "Status";
-                ws.Column(9).Width = 10.00D;
+                ws.Column(9).Width = 14.00D;
 
                 cel1 = "J" + lnIni;
                 ws.Cells[cel1].Value = "NF Vinculada";
@@ -327,9 +327,9 @@ namespace AtualizaERP.Classes
                 cel1 = "R" + lnIni;
                 ws.Cells[cel1].Value = "Observações";
                 ws.Column(18).Width = 60.00D;
-             //Fim dos Campos do Cabeçalho
+                //Fim dos Campos do Cabeçalho
 
-             //Faz a Formatação do Cabeçalho
+                //Faz a Formatação do Cabeçalho
                 ln = lnIni;
                 cel1 = "A" + lnIni;
                 cel2 = "R" + lnIni;

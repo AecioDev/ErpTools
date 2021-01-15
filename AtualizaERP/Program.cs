@@ -10,6 +10,8 @@ namespace AtualizaERP
 {
     static class Program
     {
+        private static string AgrpCus;
+
         /// <summary>
         /// Ponto de entrada principal para o aplicativo.
         /// </summary>
@@ -18,18 +20,12 @@ namespace AtualizaERP
         {
             //string[] argumentos = args;
 
-            string[] argumentos = { "ErpSheets", "1", "1", "Parametros", @"C:\Users\aecio\Controller\TitRec.xml", "001" };
+            string[] argumentos = { "ErpSheets", "3", "1", @"C:\Users\Jean\Controller\Notas.xml", "011" };
 
             string caminho = "";
             string param = "";
             int parmInt = 0, parmInt1 = 0;
-
-            DirectoryInfo dir;
-            caminho = @"C:\Temp"; //Cria a Pasta Temp
-            if (!Directory.Exists(caminho))
-            {
-                dir = Directory.CreateDirectory(caminho);
-            }
+            string DadosParam = "";
 
             CriaTarefa tarefa;
             AcessoDados Dados = new AcessoDados();
@@ -48,19 +44,16 @@ namespace AtualizaERP
             Dados.GravaErro(param);
             //MessageBox.Show(param, "Controller ERP");
 
-            switch(argumentos[0])
+            switch (argumentos[0])
             {
                 case "ErpSheets": //Argumentos Padrão - 1:Método - 2:C.Custo - 3:ArquivoXML - 4:IDConexao;
                     if (!string.IsNullOrEmpty(argumentos[1])) //Metodo
                         parmInt = Convert.ToInt32(argumentos[1]);
 
-                    if (!string.IsNullOrEmpty(argumentos[2])) //Centro de Custo
-                        parmInt1 = Convert.ToInt32(argumentos[2]);
-
-                    Application.Run(new GeraPlanilha(parmInt, parmInt1, argumentos[3], argumentos[4]));
+                    Application.Run(new GeraPlanilha(parmInt, DadosParam, argumentos[3], argumentos[4]));
                     break;
 
-                case "Alerta": //Argumentos - 1:Tempo Restante; 
+                case "Alerta": //Argumentos - 1:Tempo Restante;
                     int tmpRest = 0;
                     DateTime dataIniTask = DateTime.Now;
 
@@ -85,7 +78,7 @@ namespace AtualizaERP
 
                     if (!File.Exists(caminho) || argumentos[4] == "T") //Se não Existe
                         Application.Run(new DownloadERP(argumentos[1], argumentos[2], argumentos[3], argumentos[4]));
-                                        
+
                     if (argumentos[4] != "T")
                         Application.Run(new Home(argumentos[5], argumentos[6], argumentos[7], argumentos[8], caminho));
 
@@ -100,7 +93,14 @@ namespace AtualizaERP
                     break;
 
                 case "ScriptSQL": //Exemplo Chamada: string[] argumentos = { "ScriptSQL", "RebuildIDX", "005"};
-                                        
+
+                    DirectoryInfo dir;
+                    caminho = @"C:\Temp"; //Cria a Pasta Temp
+                    if (!Directory.Exists(caminho))
+                    {
+                        dir = Directory.CreateDirectory(caminho);
+                    }
+
                     caminho = @"C:\Controller\DebugRebuildIdx"; //Cria a Pasta de Debug
                     if (!Directory.Exists(caminho))
                     {
@@ -108,7 +108,7 @@ namespace AtualizaERP
                     }
 
                     if (argumentos[1] == "RebuildIDX")
-                    {                        
+                    {
                         if (!string.IsNullOrEmpty(argumentos[2])) //IDConex
                         {
                             var conERP = Dados.LeConfTXT(argumentos[2]);
@@ -116,7 +116,7 @@ namespace AtualizaERP
                             var result = Dados.fechaConBD(conERP, 1); //Single User - Derruba as Conexões
                             if (result == "OK")
                             {
-                                Dados.ManDBERP(argumentos[2]);                                
+                                Dados.ManDBERP(argumentos[2]);
                             }
 
                             result = Dados.fechaConBD(conERP, 0); //Multi User
@@ -176,7 +176,7 @@ namespace AtualizaERP
                     {
                         if (!string.IsNullOrEmpty(argumentos[1]))
                         {
-                            
+
                             tarefa = new CriaTarefa(argumentos[1]);
 
                             var tarefaok = tarefa.DeleteTask();
@@ -185,7 +185,7 @@ namespace AtualizaERP
                             if (tarefaok)
                                 Dados.GravaErro("Tarefa Eliminada com Sucesso!!!");
                             else
-                                Dados.GravaErro("Erro");                        
+                                Dados.GravaErro("Erro");
                         }
                         else
                         {

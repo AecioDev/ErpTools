@@ -4,6 +4,7 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Windows.Forms;
 
 namespace AtualizaERP.Classes
 {
@@ -21,7 +22,7 @@ namespace AtualizaERP.Classes
         {
             try
             {
-               FileStream fs = File.OpenWrite(caminhoArquivo);
+                FileStream fs = File.OpenWrite(caminhoArquivo);
                 fs.Close();
                 return false;
             }
@@ -36,7 +37,7 @@ namespace AtualizaERP.Classes
         {
             AcessoDados dados = new AcessoDados();
 
-            var dadosLogo = dados.DadosEmpresa(IDConex, CodCenCus);
+            ModelEmpresa dadosLogo = dados.DadosEmpresa(IDConex, CodCenCus);
 
             if (CodCenCus == 0)
             {
@@ -76,7 +77,8 @@ namespace AtualizaERP.Classes
             Image imgFoto = null;
 
             MemoryStream ms = new MemoryStream(foto);
-            imgFoto = Image.FromStream(ms);
+            Image image = Image.FromStream(ms);
+            imgFoto = image;
 
             return imgFoto;
         }

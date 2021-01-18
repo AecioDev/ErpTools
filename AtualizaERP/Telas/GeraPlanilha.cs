@@ -9,16 +9,22 @@ namespace AtualizaERP.Telas
     {
         private int CodCenCus;
         private int Metodo;
+        private string Parametros;
         private string PatchXML;
         private string IdConex;
         private string PastaUser;
         private string ArqExcel;
         private bool GeraCab;
 
-        public GeraPlanilha(int _metodo, int _cencus, string _patchXML, string _idConex)
+        //Planejamento Orçamentário
+        private string AgrpCus;
+        private int NumMeses;
+        private string DadosParam;
+
+        public GeraPlanilha(int _metodo, string _parametros, string _patchXML, string _idConex)
         {
             Metodo = _metodo;
-            CodCenCus = _cencus;
+            Parametros = _parametros;
             PatchXML = _patchXML;
             IdConex = _idConex;
 
@@ -34,16 +40,31 @@ namespace AtualizaERP.Telas
             {
                 case 1: //MAN-2164: Consulta de Titulos a Receber
                     lb_Cab.Text = "Planilha da Consulta de Títulos à Receber";
+                    ArqExcel = @"\GridTitulosReceber.xlsx";
+                    tb_PatchPadrao.Text = PastaUser + @"\Controller" + ArqExcel;
                     break;
 
                 case 2: //MAN-2164: Consulta de Titulos a Pagar
                     lb_Cab.Text = "Planilha da Consulta de Títulos à Pagar";
+                    ArqExcel = @"\GridTitulosPagar.xlsx";
+                    tb_PatchPadrao.Text = PastaUser + @"\Controller" + ArqExcel;
                     break;
 
                 case 3: //MAN-2368: Consulta de Notas
                     lb_Cab.Text = "Planilha da Grid de Notas";
                     ArqExcel = @"\GridNotas.xlsx";
                     tb_PatchPadrao.Text = PastaUser + @"\Controller" + ArqExcel;
+
+                    break;
+
+                case 20: //Planejamento Orçamentário
+                    lb_Cab.Text = "Planejamento Orçamentário";
+                    ArqExcel = @"\PlanOrc.xlsx";
+                    tb_PatchPadrao.Text = PastaUser + @"\Controller" + ArqExcel;
+
+                    AgrpCus = DadosParam[1].ToString();
+                    if (!string.IsNullOrEmpty(DadosParam[2].ToString()))
+                        NumMeses = Convert.ToInt32(DadosParam[2].ToString());
 
                     break;
             }
@@ -73,11 +94,32 @@ namespace AtualizaERP.Telas
             switch (Metodo)
             {
                 case 1: //MAN-2164: Consulta de Titulos a Receber
-                    
+
+                    GridTitulos titulosR = new GridTitulos();
+                    titulosR.ArqExcel = tb_PatchPadrao.Text;
+                    titulosR.CodCenCus = CodCenCus;
+                    titulosR.GeraCab = GeraCab;
+                    titulosR.IDConex = IdConex;
+                    titulosR.PastaUser = PastaUser;
+                    titulosR.PatchXml = PatchXML;
+                    titulosR.tipRel = "R";
+                    titulosR.NomeRelat = "Grid Consulta de Títulos a Receber";
+
+                    titulosR.GeraPlanilha();
                     break;
 
                 case 2: //MAN-2164: Consulta de Titulos a Pagar
-                    
+                    GridTitulos titulosP = new GridTitulos();
+                    titulosP.ArqExcel = tb_PatchPadrao.Text;
+                    titulosP.CodCenCus = CodCenCus;
+                    titulosP.GeraCab = GeraCab;
+                    titulosP.IDConex = IdConex;
+                    titulosP.PastaUser = PastaUser;
+                    titulosP.PatchXml = PatchXML;
+                    titulosP.tipRel = "P";
+                    titulosP.NomeRelat = "Grid Consulta de Títulos a Pagar";
+
+                    titulosP.GeraPlanilha();
                     break;
 
                 case 3: //MAN-2368: Consulta de Notas
@@ -92,10 +134,24 @@ namespace AtualizaERP.Telas
                     notas.NomeRelat = "Grid Consulta de Notas";
 
                     notas.GeraPlanilha();
-
                     break;
+
+                case 20: //Planejamento Orçamentário
+
+                    PlanOrcamentario planejamento = new PlanOrcamentario();
+                    planejamento.ArqExcel = tb_PatchPadrao.Text;
+                    planejamento.CodCenCus = CodCenCus;
+                    planejamento.GeraCab = GeraCab;
+                    planejamento.IDConex = IdConex;
+                    planejamento.PastaUser = PastaUser;
+                    planejamento.PatchXml = PatchXML;
+                    planejamento.NomeRelat = "Planejamento Orçamentário";
+
+                    planejamento.GeraPlanilha();
+                    break;
+
             }
-            
+
             //Verifica se Pode Abrir a Planilha.
             try
             {
@@ -108,7 +164,7 @@ namespace AtualizaERP.Telas
             }
             catch (Exception)
             {
-                MessageBox.Show("Não foi possível abrir a planilha Automáticamente!!! Deseja ver o Arquivo na Pasta?", "Controller ERP");
+                MessageBox.Show("Não foi possível abrir a Planilha Automaticamente!!! Deseja ver o Arquivo na Pasta?", "Controller ERP");
             }
         }
     }

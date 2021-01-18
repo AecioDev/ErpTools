@@ -136,3 +136,46 @@ E:\Projetos C#\Projetos 2021\ErpTools\AtualizaERP\obj\Debug\AtualizaERP.csproj.C
 E:\Projetos C#\Projetos 2021\ErpTools\AtualizaERP\obj\Debug\AtualizaERP.csproj.CopyComplete
 E:\Projetos C#\Projetos 2021\ErpTools\AtualizaERP\obj\Debug\AtualizaERP.exe
 E:\Projetos C#\Projetos 2021\ErpTools\AtualizaERP\obj\Debug\AtualizaERP.pdb
+D:\C#\ErpTools\AtualizaERP\bin\Debug\AtualizaERP.exe.config
+D:\C#\ErpTools\AtualizaERP\bin\Debug\AtualizaERP.exe
+D:\C#\ErpTools\AtualizaERP\bin\Debug\AtualizaERP.pdb
+D:\C#\ErpTools\AtualizaERP\bin\Debug\DotNetZip.dll
+D:\C#\ErpTools\AtualizaERP\bin\Debug\EPPlus.dll
+D:\C#\ErpTools\AtualizaERP\bin\Debug\GxClasses.dll
+D:\C#\ErpTools\AtualizaERP\bin\Debug\log4net.dll
+D:\C#\ErpTools\AtualizaERP\bin\Debug\Microsoft.SqlServer.ConnectionInfo.dll
+D:\C#\ErpTools\AtualizaERP\bin\Debug\Microsoft.SqlServer.ConnectionInfoExtended.dll
+D:\C#\ErpTools\AtualizaERP\bin\Debug\Microsoft.SqlServer.Management.Sdk.Sfc.dll
+D:\C#\ErpTools\AtualizaERP\bin\Debug\Microsoft.SqlServer.Smo.dll
+D:\C#\ErpTools\AtualizaERP\bin\Debug\Microsoft.SqlServer.SmoExtended.dll
+D:\C#\ErpTools\AtualizaERP\bin\Debug\Microsoft.SqlServer.SqlClrProvider.dll
+D:\C#\ErpTools\AtualizaERP\bin\Debug\Microsoft.SqlServer.SqlEnum.dll
+D:\C#\ErpTools\AtualizaERP\bin\Debug\Microsoft.Win32.TaskScheduler.dll
+D:\C#\ErpTools\AtualizaERP\bin\Debug\DotNetZip.xml
+D:\C#\ErpTools\AtualizaERP\bin\Debug\EPPlus.xml
+D:\C#\ErpTools\AtualizaERP\bin\Debug\Microsoft.Win32.TaskScheduler.xml
+D:\C#\ErpTools\AtualizaERP\bin\Debug\de\Microsoft.Win32.TaskScheduler.resources.dll
+D:\C#\ErpTools\AtualizaERP\bin\Debug\es\Microsoft.Win32.TaskScheduler.resources.dll
+D:\C#\ErpTools\AtualizaERP\bin\Debug\fr\Microsoft.Win32.TaskScheduler.resources.dll
+D:\C#\ErpTools\AtualizaERP\bin\Debug\it\Microsoft.Win32.TaskScheduler.resources.dll
+D:\C#\ErpTools\AtualizaERP\bin\Debug\pl\Microsoft.Win32.TaskScheduler.resources.dll
+D:\C#\ErpTools\AtualizaERP\bin\Debug\ru\Microsoft.Win32.TaskScheduler.resources.dll
+D:\C#\ErpTools\AtualizaERP\bin\Debug\zh-CN\Microsoft.Win32.TaskScheduler.resources.dll
+D:\C#\ErpTools\AtualizaERP\bin\Debug\Interop.TaskScheduler.dll
+D:\C#\ErpTools\AtualizaERP\obj\Debug\AtualizaERP.csprojAssemblyReference.cache
+D:\C#\ErpTools\AtualizaERP\obj\Debug\Interop.TaskScheduler.dll
+D:\C#\ErpTools\AtualizaERP\obj\Debug\AtualizaERP.csproj.ResolveComReference.cache
+D:\C#\ErpTools\AtualizaERP\obj\Debug\AtualizaERP.Properties.Resources.resources
+D:\C#\ErpTools\AtualizaERP\obj\Debug\AtualizaERP.Telas.BackupERP.resources
+D:\C#\ErpTools\AtualizaERP\obj\Debug\AtualizaERP.Telas.ExibeAlerta.resources
+D:\C#\ErpTools\AtualizaERP\obj\Debug\AtualizaERP.Telas.DownloadERP.resources
+D:\C#\ErpTools\AtualizaERP\obj\Debug\AtualizaERP.Telas.GeraPlanilha.resources
+D:\C#\ErpTools\AtualizaERP\obj\Debug\AtualizaERP.Telas.Home.resources
+D:\C#\ErpTools\AtualizaERP\obj\Debug\AtualizaERP.Telas.InfoUpdate.resources
+D:\C#\ErpTools\AtualizaERP\obj\Debug\AtualizaERP.Telas.ListaConexoes.resources
+D:\C#\ErpTools\AtualizaERP\obj\Debug\AtualizaERP.Telas.VersaoERP.resources
+D:\C#\ErpTools\AtualizaERP\obj\Debug\AtualizaERP.csproj.GenerateResource.cache
+D:\C#\ErpTools\AtualizaERP\obj\Debug\AtualizaERP.csproj.CoreCompileInputs.cache
+D:\C#\ErpTools\AtualizaERP\obj\Debug\AtualizaERP.csproj.CopyComplete
+D:\C#\ErpTools\AtualizaERP\obj\Debug\AtualizaERP.exe
+D:\C#\ErpTools\AtualizaERP\obj\Debug\AtualizaERP.pdb

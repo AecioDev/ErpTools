@@ -10,22 +10,19 @@ namespace AtualizaERP
 {
     static class Program
     {
-        private static string AgrpCus;
-
         /// <summary>
         /// Ponto de entrada principal para o aplicativo.
         /// </summary>
         [STAThread]
         static void Main(string[] args)
         {
-            //string[] argumentos = args;
+            string[] argumentos = args;
 
-            string[] argumentos = { "ErpSheets", "3", "1", @"C:\Users\Jean\Controller\Notas.xml", "011" };
+            //string[] argumentos = { "ErpSheets", "10", "1;2021;1;12;S;S;S", @"C:\Temp\PlanOrc.xml", "004" };
 
             string caminho = "";
             string param = "";
-            int parmInt = 0, parmInt1 = 0;
-            string DadosParam = "";
+            int parmInt = 0;
 
             CriaTarefa tarefa;
             AcessoDados Dados = new AcessoDados();
@@ -50,7 +47,7 @@ namespace AtualizaERP
                     if (!string.IsNullOrEmpty(argumentos[1])) //Metodo
                         parmInt = Convert.ToInt32(argumentos[1]);
 
-                    Application.Run(new GeraPlanilha(parmInt, DadosParam, argumentos[3], argumentos[4]));
+                    Application.Run(new GeraPlanilha(parmInt, argumentos[2], argumentos[3], argumentos[4]));
                     break;
 
                 case "Alerta": //Argumentos - 1:Tempo Restante;

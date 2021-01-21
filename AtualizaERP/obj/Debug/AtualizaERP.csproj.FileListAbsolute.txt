@@ -205,7 +205,6 @@ D:\C#\ErpTools\AtualizaERP\bin\Debug\pl\Microsoft.Win32.TaskScheduler.resources.
 D:\C#\ErpTools\AtualizaERP\bin\Debug\ru\Microsoft.Win32.TaskScheduler.resources.dll
 D:\C#\ErpTools\AtualizaERP\bin\Debug\zh-CN\Microsoft.Win32.TaskScheduler.resources.dll
 D:\C#\ErpTools\AtualizaERP\bin\Debug\Interop.TaskScheduler.dll
-D:\C#\ErpTools\AtualizaERP\obj\Debug\AtualizaERP.csprojAssemblyReference.cache
 D:\C#\ErpTools\AtualizaERP\obj\Debug\Interop.TaskScheduler.dll
 D:\C#\ErpTools\AtualizaERP\obj\Debug\AtualizaERP.csproj.ResolveComReference.cache
 D:\C#\ErpTools\AtualizaERP\obj\Debug\AtualizaERP.Properties.Resources.resources
@@ -222,3 +221,4 @@ D:\C#\ErpTools\AtualizaERP\obj\Debug\AtualizaERP.csproj.CoreCompileInputs.cache
 D:\C#\ErpTools\AtualizaERP\obj\Debug\AtualizaERP.csproj.CopyComplete
 D:\C#\ErpTools\AtualizaERP\obj\Debug\AtualizaERP.exe
 D:\C#\ErpTools\AtualizaERP\obj\Debug\AtualizaERP.pdb
+D:\C#\ErpTools\AtualizaERP\obj\Debug\AtualizaERP.csprojAssemblyReference.cache

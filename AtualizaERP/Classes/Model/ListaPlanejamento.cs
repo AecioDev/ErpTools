@@ -4,10 +4,6 @@ using System.Xml.Serialization;
 
 namespace AtualizaERP.Classes
 {
-    //Replace 1 - SdtListaNotas.SdtListaNotasItem -> Nota
-    //Replace 2 - SdtListaNotas -> ListaNotas
-    //Replace 3 - SdtTitulosExcel -> Titulos
-
     [System.Serializable()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true)]
@@ -25,9 +21,6 @@ namespace AtualizaERP.Classes
 
     public partial class Plano
     {
-
-        private int linhaField;
-
         private string estruturaField;
 
         private int codigoField;
@@ -126,27 +119,10 @@ namespace AtualizaERP.Classes
 
         private string subTotRecField;
 
-        private string somaTotal1Field;
-
-        private string somaTotal2Field;
-
         private string coluna200Field;
 
         private string coluna202Field;
-
-        /// <remarks/>
-        public int linha
-        {
-            get
-            {
-                return this.linhaField;
-            }
-            set
-            {
-                this.linhaField = value;
-            }
-        }
-
+                
         /// <remarks/>
         public string Estrutura
         {
@@ -781,32 +757,6 @@ namespace AtualizaERP.Classes
             set
             {
                 this.subTotRecField = value;
-            }
-        }
-
-        /// <remarks/>
-        public string somaTotal1
-        {
-            get
-            {
-                return this.somaTotal1Field;
-            }
-            set
-            {
-                this.somaTotal1Field = value;
-            }
-        }
-
-        /// <remarks/>
-        public string somaTotal2
-        {
-            get
-            {
-                return this.somaTotal2Field;
-            }
-            set
-            {
-                this.somaTotal2Field = value;
             }
         }
 

@@ -7,7 +7,6 @@ namespace AtualizaERP.Telas
 {
     public partial class GeraPlanilha : Form
     {
-        private int CodCenCus;
         private int Metodo;
         private string Parametros;
         private string PatchXML;
@@ -15,11 +14,7 @@ namespace AtualizaERP.Telas
         private string PastaUser;
         private string ArqExcel;
         private bool GeraCab;
-
-        //Planejamento Orçamentário
-        private string AgrpCus;
-        private int NumMeses;
-        private string DadosParam;
+        private int tempo = 5;
 
         public GeraPlanilha(int _metodo, string _parametros, string _patchXML, string _idConex)
         {
@@ -35,6 +30,8 @@ namespace AtualizaERP.Telas
         {
             PastaUser = Environment.GetEnvironmentVariable("USERPROFILE");
             cb_GeraCab.SelectedIndex = 0; //Sem cabeçalho
+            //notifyIcon1.BalloonTipClicked -= notifyIcon1_BalloonTipClicked;
+            timer1.Enabled = false;
 
             switch (Metodo)
             {
@@ -57,15 +54,11 @@ namespace AtualizaERP.Telas
 
                     break;
 
-                case 20: //Planejamento Orçamentário
+                case 10: //Planejamento Orçamentário
                     lb_Cab.Text = "Planejamento Orçamentário";
                     ArqExcel = @"\PlanOrc.xlsx";
                     tb_PatchPadrao.Text = PastaUser + @"\Controller" + ArqExcel;
-
-                    AgrpCus = DadosParam[1].ToString();
-                    if (!string.IsNullOrEmpty(DadosParam[2].ToString()))
-                        NumMeses = Convert.ToInt32(DadosParam[2].ToString());
-
+                    
                     break;
             }
         }
@@ -91,13 +84,17 @@ namespace AtualizaERP.Telas
 
         private void bt_GerarPlanilha_Click(object sender, EventArgs e)
         {
+            pg_Progresso.Visible = true;
+            lb_progress.Visible = true;
+
+            pg_Progresso.Value = 50;
+
             switch (Metodo)
             {
                 case 1: //MAN-2164: Consulta de Titulos a Receber
 
                     GridTitulos titulosR = new GridTitulos();
                     titulosR.ArqExcel = tb_PatchPadrao.Text;
-                    titulosR.CodCenCus = CodCenCus;
                     titulosR.GeraCab = GeraCab;
                     titulosR.IDConex = IdConex;
                     titulosR.PastaUser = PastaUser;
@@ -111,7 +108,6 @@ namespace AtualizaERP.Telas
                 case 2: //MAN-2164: Consulta de Titulos a Pagar
                     GridTitulos titulosP = new GridTitulos();
                     titulosP.ArqExcel = tb_PatchPadrao.Text;
-                    titulosP.CodCenCus = CodCenCus;
                     titulosP.GeraCab = GeraCab;
                     titulosP.IDConex = IdConex;
                     titulosP.PastaUser = PastaUser;
@@ -126,7 +122,6 @@ namespace AtualizaERP.Telas
 
                     GridNotas notas = new GridNotas();
                     notas.ArqExcel = tb_PatchPadrao.Text;
-                    notas.CodCenCus = CodCenCus;
                     notas.GeraCab = GeraCab;
                     notas.IDConex = IdConex;
                     notas.PastaUser = PastaUser;
@@ -136,21 +131,23 @@ namespace AtualizaERP.Telas
                     notas.GeraPlanilha();
                     break;
 
-                case 20: //Planejamento Orçamentário
+                case 10: //Planejamento Orçamentário
 
-                    PlanOrcamentario planejamento = new PlanOrcamentario();
+                    PlanOrcamentario planejamento = new PlanOrcamentario(Parametros, this);
                     planejamento.ArqExcel = tb_PatchPadrao.Text;
-                    planejamento.CodCenCus = CodCenCus;
                     planejamento.GeraCab = GeraCab;
                     planejamento.IDConex = IdConex;
                     planejamento.PastaUser = PastaUser;
                     planejamento.PatchXml = PatchXML;
                     planejamento.NomeRelat = "Planejamento Orçamentário";
 
+
                     planejamento.GeraPlanilha();
                     break;
 
             }
+
+            pg_Progresso.Value = 99;
 
             //Verifica se Pode Abrir a Planilha.
             try
@@ -161,11 +158,41 @@ namespace AtualizaERP.Telas
 
                 xlWorkBook = xlApp.Workbooks.Open(tb_PatchPadrao.Text);
                 xlApp.Visible = true;
+
+                timer1.Enabled = true; //Habilita o timer
+                lb_timer.Visible = true;
             }
             catch (Exception)
             {
                 MessageBox.Show("Não foi possível abrir a Planilha Automaticamente!!! Deseja ver o Arquivo na Pasta?", "Controller ERP");
+                if (MessageBox.Show("Não foi possível abrir a Planilha Automaticamente!!! Deseja ver o Arquivo na Pasta?", "Controller ERP", 
+                    MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                {
+                    string cmd = "explorer.exe";
+                    string arg = "/select, " + tb_PatchPadrao.Text;
+                    System.Diagnostics.Process.Start(cmd, arg);
+                }
+
             }
+
+            
         }
+
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            lb_timer.Text = "Fechando em: " + tempo;
+            if (tempo == 0)
+            {
+                this.Close();
+            }
+
+            tempo--;
+        }
+
+        private void bt_fechar_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
     }
 }
